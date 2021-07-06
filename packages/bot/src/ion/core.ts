@@ -27,25 +27,25 @@ class Ion {
   apiId: number;
   apiHash: string;
   user: any;
+  public botStatus: number;
 
   constructor() {
     console.log(`initialising ion`);
 
     this.apiId = 0;
     this.apiHash = "";
+    this.botStatus = 0;
 
-    this.load();
+    this.start();
   }
   log() {}
-  async load() {
+
+  async start() {
     const config = session.load();
     this.apiId = config.apiId;
     this.apiHash = config.apiHash;
     this.session = new StringSession(config.session);
-    this.start();
-  }
 
-  async start() {
     if (this.session && this.apiHash && this.apiId) {
       this.client = new TelegramClient(this.session, this.apiId, this.apiHash, {
         connectionRetries: 5,
