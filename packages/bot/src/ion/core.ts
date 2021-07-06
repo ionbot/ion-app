@@ -54,11 +54,13 @@ class Ion {
       await this.client.start({ botAuthToken: "" });
 
       this.user = await this.client.getMe();
+      this.botStatus = 1;
 
       console.log(`[ion] logged in as ${this.user.firstName}`);
     }
   }
   stop() {
+    this.botStatus = 0;
     /** stop user bot */
   }
 }
