@@ -1,0 +1,22 @@
+{
+  "name": "ionbot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "useWorkspaces": true,
+  "license": "MIT",
+  "scripts": {
+    "dev": "npm-run-all dev:*",
+    "build": "lerna run build --stream",
+    "dev:server": "lerna run dev --scope bot --stream",
+    "dev:client": "lerna run dev --scope dashboard --stream",
+    "build:server": "lerna run build --scope bot --stream",
+    "build:client": "lerna run build --scope dashboard --stream",
+    "new-version": "lerna version"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-run": "^1.7.1",
+    "lerna": "^4.0.0",
+    "npm-run-all": "^4.1.5"
+  }
+}
