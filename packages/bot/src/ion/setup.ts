@@ -12,9 +12,9 @@ io.on("connection", (socket) => {
       });
     });
 
-  const GetPassword = () =>
+  const GetPassword = (hint?: string) =>
     new Promise((resolve) => {
-      socket.emit("get-password");
+      socket.emit("get-password", { hint });
       socket.on("password", (code) => {
         resolve(code);
       });
@@ -31,8 +31,8 @@ io.on("connection", (socket) => {
 
       await client.start({
         phoneNumber: async () => phoneNumber,
-        password: async () => {
-          const password = await GetPassword();
+        password: async (hint?: string) => {
+          const password = await GetPassword(hint);
           return String(password);
         },
         phoneCode: async () => {
