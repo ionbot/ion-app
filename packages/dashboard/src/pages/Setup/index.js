@@ -50,6 +50,12 @@ export default () => {
       SetStep(2);
     });
 
+    socket.on("get-password", () => {
+      // todo: use chakra-ui modal to promt
+      const password = prompt("Enter 2FA password:");
+      socket.emit("password", password);
+    });
+
     socket.on("error", (error) => {
       setError(error);
       setLoading(false);
