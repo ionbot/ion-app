@@ -42,7 +42,10 @@ class Ion {
     this.apiId = config.apiId;
     this.apiHash = config.apiHash;
     this.session = new StringSession(config.session);
+    this.start();
+  }
 
+  async start() {
     if (this.session && this.apiHash && this.apiId) {
       this.client = new TelegramClient(this.session, this.apiId, this.apiHash, {
         connectionRetries: 5,
@@ -54,10 +57,6 @@ class Ion {
 
       console.log(`[ion] logged in as ${this.user.firstName}`);
     }
-  }
-
-  start() {
-    /** start user bot */
   }
   stop() {
     /** stop user bot */
