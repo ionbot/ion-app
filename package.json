@@ -5,15 +5,16 @@
   "useWorkspaces": true,
   "license": "MIT",
   "scripts": {
-    "dev": "npm-run-all dev:*",
+    "dev": "concurrently --kill-others \"yarn dev:client\" \"yarn dev:server\"",
     "build": "lerna run build --stream",
     "dev:server": "lerna run dev --scope bot --stream",
-    "dev:client": "lerna run dev --scope dashboard --stream",
+    "dev:client": "lerna run dev --scope dashboard",
     "build:server": "lerna run build --scope bot --stream",
     "build:client": "lerna run build --scope dashboard --stream",
     "new-version": "lerna version"
   },
   "devDependencies": {
+    "concurrently": "^6.2.0",
     "gulp": "^4.0.2",
     "gulp-run": "^1.7.1",
     "lerna": "^4.0.0",
