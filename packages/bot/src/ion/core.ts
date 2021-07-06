@@ -42,7 +42,7 @@ class Ion {
 
   async start() {
     const config = session.load();
-    this.apiId = config.apiId;
+    this.apiId = Number(config.apiId);
     this.apiHash = config.apiHash;
     this.session = new StringSession(config.session);
 
