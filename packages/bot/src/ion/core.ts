@@ -3,6 +3,9 @@ import { TelegramClient } from "telegram";
 import { StringSession } from "telegram/sessions";
 import * as session from "./session";
 
+import { Logger } from "telegram/extensions";
+Logger.setLevel("errors");
+
 const { NODE_ENV } = process.env;
 
 const logger = winston.createLogger({
