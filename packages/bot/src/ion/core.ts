@@ -21,12 +21,12 @@ if (NODE_ENV !== "production") {
 }
 
 class Ion {
-  client: TelegramClient | undefined;
-  session: StringSession | undefined;
+  private client: TelegramClient | undefined;
+  private session: StringSession | undefined;
 
-  apiId: number;
-  apiHash: string;
-  user: any;
+  private apiId: number;
+  private apiHash: string;
+  public user: any;
   public botStatus: number;
 
   constructor() {
