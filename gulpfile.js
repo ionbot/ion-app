@@ -21,7 +21,6 @@ gulp.task("build-client", (cb) => {
 });
 
 gulp.task("release", (cb) => {
-  gulp.task("release");
   gulp.src("packages/bot/build/**").pipe(gulp.dest("dist/"));
   gulp.src("packages/bot/package.json").pipe(gulp.dest("dist/"));
   gulp.src("packages/dashboard/build/**").pipe(gulp.dest("dist/dashboard"));
@@ -30,3 +29,5 @@ gulp.task("release", (cb) => {
 
   cb();
 });
+
+exports.default = gulp.series("build-client", "build-server", "release");
