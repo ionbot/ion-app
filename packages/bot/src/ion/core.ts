@@ -1,6 +1,8 @@
 import winston from "winston";
 import { TelegramClient } from "telegram";
+import { NewMessage } from "telegram/events";
 import { StringSession } from "telegram/sessions";
+import { allModules } from "./modules";
 import * as session from "./session";
 
 import { Logger } from "telegram/extensions";
@@ -60,8 +62,29 @@ class Ion {
       this.botStatus = 1;
 
       console.log(`[ion] logged in as ${this.user.firstName}`);
+      this.loadModules();
     }
   }
+
+  createPattern(text: string | RegExp) {
+    if (typeof text == "string") return new RegExp(text);
+    return text;
+  }
+
+  loadModules() {
+    allModules.map((mod) => {
+      let mode = {
+        outgoing: mod.mode === "outgoing",
+        icoming: mod.mode === "incoming",
+      };
+
+      this.client?.addEventHandler(
+        mod.handler(),
+        new NewMessage({ ...mode, pattern: this.createPattern(mod.match) })
+      );
+    });
+  }
+
   stop() {
     this.botStatus = 0;
     /** stop user bot */
