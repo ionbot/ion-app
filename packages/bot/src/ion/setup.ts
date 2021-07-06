@@ -14,7 +14,7 @@ io.on("connection", (socket) => {
 
   const GetPassword = (hint?: string) =>
     new Promise((resolve) => {
-      socket.emit("get-password", { hint });
+      socket.emit("get-password", hint);
       socket.on("password", (code) => {
         resolve(code);
       });

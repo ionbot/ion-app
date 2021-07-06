@@ -22,15 +22,17 @@ import { SetupStore } from "../../store/setup.store";
 import Step1 from "./steps/Step1";
 import Step2 from "./steps/Step2";
 import Step3 from "./steps/Step3";
+import Step4 from "./steps/Step4";
 
 import socket from "../Dashboard/providers/socket.io";
 
-const MAX_STEP = 3;
+const MAX_STEP = 4;
 
 const StepView = {
   1: <Step1 />, // user credentials
   2: <Step2 />, // user authentication
-  3: <Step3 />, // success
+  3: <Step3 />, // password
+  4: <Step4 />, // success
 };
 
 export default () => {
@@ -50,10 +52,14 @@ export default () => {
       SetStep(2);
     });
 
-    socket.on("get-password", () => {
-      // todo: use chakra-ui modal to promt
-      const password = prompt("Enter 2FA password:");
-      socket.emit("password", password);
+    socket.on("get-password", (hint) => {
+      if (hint) {
+        SetupStore.update(s => {
+          s.passwordHint = hint;
+        });
+      }
+      setLoading(false);
+      SetStep(3);
     });
 
     socket.on("error", (error) => {
@@ -66,7 +72,7 @@ export default () => {
       SetupStore.update((s) => {
         s.final = data;
       });
-      SetStep(3);
+      SetStep(4);
     });
   }, []);
 
@@ -81,6 +87,9 @@ export default () => {
         setLoading(true);
         socket.emit("phone-code", setupStore.data.phoneCode);
       case 3:
+        setLoading(true);
+        socket.emit("password", setupStore.data.password);
+      case 4:
         break;
     }
   };

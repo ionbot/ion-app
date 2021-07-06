@@ -1,56 +1,21 @@
-import {
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
-  Button,
-  Box,
-  HStack,
-} from "@chakra-ui/react";
-import { FiArrowRight } from "react-icons/fi";
-import { FaTelegram } from "react-icons/fa";
+import { Stack, Input, FormControl, FormLabel } from "@chakra-ui/react";
 import { SetupStore } from "../../../store/setup.store";
 
 export default () => {
-  const { user } = SetupStore.useState((s) => s.final);
-  if (!user) return null;
+  const {passwordHint} = SetupStore.useState(s => s);
+
+  const handelChange = (e) => {
+    SetupStore.update((s) => {
+      s.data[e.target.id] = e.target.value;
+    });
+  };
 
   return (
-    <Box pos="relative">
-      <Alert
-        colorScheme="brand"
-        variant="top-accent"
-        flexDirection="column"
-        alignItems="center"
-        justifyContent="center"
-        textAlign="center"
-        rounded="lg"
-        p={4}
-      >
-        <AlertIcon boxSize="40px" mr={0} />
-        <AlertTitle mt={4} mb={1} fontSize="lg">
-          Welcome, {user.firstName}
-        </AlertTitle>
-        <AlertDescription maxWidth="sm">
-          You've successfully setup your user bot, test it by sending (
-          <code>.ping</code> ) to any chat.
-        </AlertDescription>
-      </Alert>
-      <HStack pos="absolute" right={0} mt={4}>
-        <Button
-          leftIcon={<FaTelegram />}
-          colorScheme="brand"
-          variant="outline"
-          href="https://t.me/ionuserbotchat"
-          target="_blank"
-          as="a"
-        >
-          Join Telegram
-        </Button>
-        <Button leftIcon={<FiArrowRight />} colorScheme="brand" href="/" as="a">
-          Go to Dashboard
-        </Button>
-      </HStack>
-    </Box>
+    <Stack>
+      <FormControl>
+        <FormLabel>Password</FormLabel>
+        <Input placeholder={passwordHint} id="password"  onChange={handelChange} />
+      </FormControl>
+    </Stack>
   );
 };
