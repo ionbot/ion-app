@@ -1,7 +1,9 @@
 const gulp = require("gulp");
 const run = require("gulp-run");
 const uglify = require("gulp-uglify");
+const zip = require("gulp-zip");
 const fs = require("fs");
+const { version } = require("./package.json");
 
 const defaultSession = {
   apiId: "",
@@ -28,6 +30,11 @@ gulp.task("release", (cb) => {
   gulp.src("packages/dashboard/build/**").pipe(gulp.dest("dist/dashboard"));
 
   fs.writeFileSync("dist/session.json", JSON.stringify(defaultSession));
+
+  gulp
+    .src("dist/**")
+    .pipe(zip(`ion-release-v${version}.zip`))
+    .pipe(gulp.dest("."));
 
   cb();
 });
