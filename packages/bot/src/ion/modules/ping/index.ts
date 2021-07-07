@@ -8,16 +8,20 @@ const meta: ModuleMeta = {
   mode: "outgoing",
 };
 
-const PingModule = async (event: NewMessageEvent) => {
-  await event.message.reply({
-    message: `🚀 Ion (v${VERSION}) is up and running.`,
-    replyTo: 0,
+const PingModule = async (event: NewMessageEvent, config?: object) => {
+  const time = Date.now();
+  await event.client?.sendMessage("me", { message: "..." }); // send message to pm
+  const diff = Date.now() - time;
+  event.client?.editMessage(event.message.peerId, {
+    message: event.message.id,
+    text: `🚀 Ion v${VERSION} is up and running.\n🕔 Latency: **${
+      diff / 2 // haha
+    }ms**`,
+    parseMode: "markdown",
   });
 };
 
 export default {
-  handler: (config?: object) => {
-    return PingModule;
-  },
+  handler: PingModule,
   ...meta,
 };
