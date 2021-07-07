@@ -2,7 +2,7 @@ const gulp = require("gulp");
 const run = require("gulp-run");
 const zip = require("gulp-zip");
 const fs = require("fs");
-const { version } = require("./package.json");
+const { version } = require("./lerna.json");
 
 const defaultSession = {
   apiId: "",
