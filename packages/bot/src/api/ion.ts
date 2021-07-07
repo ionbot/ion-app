@@ -15,3 +15,7 @@ export const getUserBot = async () => {
     version: VERSION,
   };
 };
+
+export const getLoadedModules = async () => {
+  return Ion.loadedModules;
+};
