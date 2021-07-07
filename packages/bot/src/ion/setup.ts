@@ -26,7 +26,7 @@ io.on("connection", (socket) => {
       const { apiId, apiHash, phoneNumber } = data;
       const stringSession = new StringSession("");
 
-      const client = new TelegramClient(stringSession, apiId, apiHash, {
+      const client = new TelegramClient(stringSession, Number(apiId), apiHash, {
         connectionRetries: 5,
       });
 
