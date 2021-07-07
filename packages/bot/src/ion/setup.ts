@@ -1,4 +1,4 @@
-import { TelegramClient } from "telegram";
+import { Api, TelegramClient } from "telegram";
 import { StringSession } from "telegram/sessions";
 import Ion from "./core";
 import * as session from "./session";
@@ -57,9 +57,7 @@ io.on("connection", (socket) => {
 
       Ion.start();
 
-      socket.emit("user-welcome", {
-        user: self,
-      });
+      socket.emit("user-welcome", (self as Api.User).firstName);
     } catch (error) {
       socket.emit("error", String(error));
     }
