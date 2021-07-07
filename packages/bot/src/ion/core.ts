@@ -5,6 +5,7 @@ import { StringSession } from "telegram/sessions";
 import { allModules } from "./modules";
 import * as session from "./session";
 
+import VERSION from "../version";
 import { Logger } from "telegram/extensions";
 Logger.setLevel("errors");
 
@@ -13,7 +14,6 @@ const { NODE_ENV } = process.env;
 const logger = winston.createLogger({
   level: "info",
   format: winston.format.json(),
-  defaultMeta: { service: "user-service" },
   transports: [], //todo: add file logging
 });
 
@@ -35,7 +35,7 @@ export default new (class Ion {
   public botStatus: number;
 
   constructor() {
-    console.log(`initialising ion`);
+    logger.info(`Initializing Ion v${VERSION}`);
 
     this.apiId = 0;
     this.apiHash = "";
@@ -61,7 +61,7 @@ export default new (class Ion {
       this.user = await this.client.getMe();
       this.botStatus = 1;
 
-      console.log(`[ion] logged in as ${this.user.firstName}`);
+      logger.info(`logged in as ${this.user.firstName}`);
       this.loadModules();
     }
   }
