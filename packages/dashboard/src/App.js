@@ -12,12 +12,11 @@ const App = (props) => {
   const userApi = useFetch("/userbot");
   useEffect(() => {
     userApi.get().then((data) => {
-      console.log("data", data);
-      const { profile, ionv, upTime, status } = data;
+      const { profile, version, upTime, status } = data;
       if (profile)
         UserBotStore.update((s) => {
           s.profile = data.profile;
-          s.ionv = ionv;
+          s.ionv = version;
           s.status = status;
           s.upTime = upTime;
         });
