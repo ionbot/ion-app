@@ -1,10 +1,10 @@
 import { Request, Response, Router } from "express";
-import { getUser } from "../api/ion";
+import { getUserBot } from "../api/ion";
 
 const apiRoutes = Router();
 
-apiRoutes.get("/user", async (req: Request, res: Response) => {
-  const user = await getUser();
+apiRoutes.get("/userbot", async (req: Request, res: Response) => {
+  const user = await getUserBot();
 
   res.json(user);
 });
