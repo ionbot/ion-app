@@ -1,5 +1,6 @@
 import { TelegramClient } from "telegram";
 import { StringSession } from "telegram/sessions";
+import Ion from "./core";
 import * as session from "./session";
 import io from "./socket";
 
@@ -53,6 +54,8 @@ io.on("connection", (socket) => {
         apiHash,
         session: usersession,
       });
+
+      Ion.start();
 
       socket.emit("user-welcome", {
         user: self,
