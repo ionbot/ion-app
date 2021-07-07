@@ -1,6 +1,6 @@
 import winston from "winston";
 import { TelegramClient } from "telegram";
-import { NewMessage } from "telegram/events";
+import { NewMessage, NewMessageEvent } from "telegram/events";
 import { StringSession } from "telegram/sessions";
 import { allModules } from "./modules";
 import * as session from "./session";
@@ -30,6 +30,7 @@ export default new (class Ion {
   private client: TelegramClient | undefined;
   private session: StringSession | undefined;
   private socket: any;
+  private prefix: string = "."; // get from config
 
   private apiId: number;
   private apiHash: string;
@@ -75,7 +76,7 @@ export default new (class Ion {
   }
 
   createPattern(text: string | RegExp) {
-    if (typeof text == "string") return new RegExp(text);
+    if (typeof text == "string") return new RegExp(`^${this.prefix}${text}`);
     return text;
   }
 
@@ -86,10 +87,9 @@ export default new (class Ion {
         icoming: mod.mode === "incoming",
       };
 
-      this.client?.addEventHandler(
-        mod.handler(),
-        new NewMessage({ ...mode, pattern: this.createPattern(mod.match) })
-      );
+      this.client?.addEventHandler((event: NewMessageEvent) => {
+        mod.handler(event);
+      }, new NewMessage({ ...mode, pattern: this.createPattern(mod.match) }));
     });
   }
 
