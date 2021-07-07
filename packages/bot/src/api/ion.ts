@@ -1,13 +1,11 @@
-import { Ion } from "../ion/core";
+import Ion from "../ion/core";
 import VERSION from "../version";
 
-const ion = new Ion();
-
 export const getUser = async () => {
-  const status = ion.botStatus;
+  const status = Ion.botStatus;
 
   return {
-    ...ion.user,
+    ...Ion.user,
     status,
     version: VERSION,
   };
