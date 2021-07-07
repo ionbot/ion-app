@@ -4,7 +4,7 @@ import { NewMessage, NewMessageEvent } from "telegram/events";
 import { StringSession } from "telegram/sessions";
 import { allModules } from "./modules";
 import * as session from "./session";
-
+import { readFileSync } from "fs-extra";
 import io from "./socket";
 import VERSION from "../version";
 import { Logger } from "telegram/extensions";
@@ -87,9 +87,17 @@ export default new (class Ion {
         icoming: mod.mode === "incoming",
       };
 
-      this.client?.addEventHandler((event: NewMessageEvent) => {
-        mod.handler(event);
-      }, new NewMessage({ ...mode, pattern: this.createPattern(mod.match) }));
+      try {
+        this.client?.addEventHandler((event: NewMessageEvent) => {
+          mod.handler(event);
+        }, new NewMessage({ ...mode, pattern: this.createPattern(mod.match) }));
+
+        this.socket.emit("module-loaded", {
+          name: mod.name,
+          description: mod.description,
+          readme: readFileSync(__dirname + `modules/${mod.slug}/README.md`),
+        });
+      } catch (e) {}
     });
   }
 
