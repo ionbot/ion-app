@@ -3,6 +3,11 @@ import { ModuleMeta } from "..";
 import VERSION from "../../../version";
 
 const meta: ModuleMeta = {
+  name: "Ping",
+  description:
+    "Just to check if your bot is alive or not, shows Ion version also.",
+  slug: "ping",
+
   match: "ping",
   scope: "all",
   mode: "outgoing",
