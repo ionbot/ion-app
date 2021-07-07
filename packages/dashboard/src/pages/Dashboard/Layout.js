@@ -17,11 +17,11 @@ import { withRouter } from "react-router-dom";
 import { FiBell } from "react-icons/fi";
 
 import { RiMenu2Line } from "react-icons/ri";
-import { UserStore } from "../../store/user.store";
+import { UserBotStore } from "../../store/userbot.store";
 import Sidebar from "./components/Sidebar";
 
 const Layout = ({ children, match }) => {
-  const { profile, ionv } = UserStore.useState((s) => s);
+  const { profile, ionv } = UserBotStore.useState((s) => s);
   const sidebar = useDisclosure();
 
   return (

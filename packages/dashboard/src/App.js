@@ -4,18 +4,22 @@ import useFetch from "use-http";
 
 import Dashboard from "./pages/Dashboard";
 import Setup from "./pages/Setup";
-import { UserStore } from "./store/user.store";
+import { UserBotStore } from "./store/userbot.store";
 
 const App = (props) => {
   /** Fetch user, if not found, render Setup view */
 
-  const userApi = useFetch("/user");
+  const userApi = useFetch("/userbot");
   useEffect(() => {
-    userApi.get().then((profile) => {
+    userApi.get().then((data) => {
+      console.log("data", data);
+      const { profile, ionv, upTime, status } = data;
       if (profile)
-        UserStore.update((s) => {
-          s.profile = profile;
-          s.ionv = profile.version;
+        UserBotStore.update((s) => {
+          s.profile = data.profile;
+          s.ionv = ionv;
+          s.status = status;
+          s.upTime = upTime;
         });
     });
   }, []);
@@ -28,11 +32,10 @@ const App = (props) => {
     );
   }
 
-  if (userApi.data && !userApi.data.id) {
-    return <Setup />;
+  if (userApi.data && userApi.data.profile.id) {
+    return <Dashboard {...props} />;
   }
-
-  return <Dashboard {...props} />;
+  return <Setup />;
 };
 
 export default App;
