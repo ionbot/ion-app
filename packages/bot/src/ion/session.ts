@@ -1,4 +1,4 @@
-import { readJSONSync, writeJSONSync } from "fs-extra";
+import { readJSONSync, writeJSONSync, existsSync } from "fs-extra";
 import path from "path";
 
 export interface Session {
@@ -19,5 +19,14 @@ export const save = (session: Session) => {
   writeJSONSync(sessionFile, { ...session });
 };
 export const load = (): Session => {
-  return readJSONSync(sessionFile);
+  if (existsSync(sessionFile)) {
+    return readJSONSync(sessionFile);
+  } else {
+    writeJSONSync(sessionFile, {});
+    return {
+      apiId: 0,
+      apiHash: "",
+      session: "",
+    };
+  }
 };
