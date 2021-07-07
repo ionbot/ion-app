@@ -25,7 +25,7 @@ if (NODE_ENV !== "production") {
   );
 }
 
-class Ion {
+export default new (class Ion {
   private client: TelegramClient | undefined;
   private session: StringSession | undefined;
 
@@ -89,5 +89,4 @@ class Ion {
     this.botStatus = 0;
     /** stop user bot */
   }
-}
-export { Ion };
+})();
