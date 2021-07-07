@@ -32,7 +32,7 @@ const App = (props) => {
     );
   }
 
-  if (userApi.data && userApi.data.profile.id) {
+  if (userApi.data && userApi.data.profile) {
     return <Dashboard {...props} />;
   }
   return <Setup />;
