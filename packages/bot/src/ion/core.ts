@@ -5,6 +5,7 @@ import { StringSession } from "telegram/sessions";
 import { allModules } from "./modules";
 import * as session from "./session";
 
+import io from "./socket";
 import VERSION from "../version";
 import { Logger } from "telegram/extensions";
 Logger.setLevel("errors");
@@ -28,11 +29,13 @@ if (NODE_ENV !== "production") {
 export default new (class Ion {
   private client: TelegramClient | undefined;
   private session: StringSession | undefined;
+  private socket: any;
 
   private apiId: number;
   private apiHash: string;
   public user: any;
   public botStatus: number;
+  public startTime: Date = new Date();
 
   constructor() {
     logger.info(`Initializing Ion v${VERSION}`);
@@ -40,6 +43,10 @@ export default new (class Ion {
     this.apiId = 0;
     this.apiHash = "";
     this.botStatus = 0;
+
+    io.on("connection", (socket) => {
+      this.socket = socket;
+    });
 
     this.start();
   }
@@ -62,6 +69,7 @@ export default new (class Ion {
       this.botStatus = 1;
 
       logger.info(`logged in as ${this.user.firstName}`);
+      this.socketHandler();
       this.loadModules();
     }
   }
@@ -83,6 +91,10 @@ export default new (class Ion {
         new NewMessage({ ...mode, pattern: this.createPattern(mod.match) })
       );
     });
+  }
+
+  socketHandler() {
+    /** Handle Client Socket */
   }
 
   stop() {
