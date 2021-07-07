@@ -97,10 +97,6 @@ export default new (class Ion {
         this.loadedModules.push({
           name: mod.name,
           description: mod.description,
-          readme: readFileSync(
-            __dirname + `/modules/${mod.slug}/README.md`,
-            "utf-8"
-          ),
         });
       } catch (e) {
         console.log("e", e);
