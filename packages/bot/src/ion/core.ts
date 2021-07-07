@@ -2,11 +2,12 @@ import winston from "winston";
 import { TelegramClient } from "telegram";
 import { NewMessage, NewMessageEvent } from "telegram/events";
 import { StringSession } from "telegram/sessions";
-import { allModules } from "./modules";
 import * as session from "./session";
 import { readFileSync } from "fs-extra";
 import io from "./socket";
 import VERSION from "../version";
+import { allModules } from "./modules";
+
 import { Logger } from "telegram/extensions";
 Logger.setLevel("errors");
 
@@ -32,6 +33,7 @@ export default new (class Ion {
   private socket: any;
   private prefix: string = "."; // get from config
 
+  public loadedModules: any[] = [];
   private apiId: number;
   private apiHash: string;
   public user: any;
@@ -92,12 +94,17 @@ export default new (class Ion {
           mod.handler(event);
         }, new NewMessage({ ...mode, pattern: this.createPattern(mod.match) }));
 
-        this.socket.emit("module-loaded", {
+        this.loadedModules.push({
           name: mod.name,
           description: mod.description,
-          readme: readFileSync(__dirname + `modules/${mod.slug}/README.md`),
+          readme: readFileSync(
+            __dirname + `/modules/${mod.slug}/README.md`,
+            "utf-8"
+          ),
         });
-      } catch (e) {}
+      } catch (e) {
+        console.log("e", e);
+      }
     });
   }
 
