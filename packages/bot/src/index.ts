@@ -34,7 +34,7 @@ app.use("/api", apiRoutes);
 /** serve dashboard folder only in production */
 
 if (NODE_ENV !== "development") {
-  const dashboard = path.join(__dirname + "/../build/dashboard");
+  const dashboard = path.join(__dirname + "/../dashboard");
   app.use(serveStatic(dashboard));
   app.get("*", async (req, res) => {
     res.sendFile(dashboard + "/index.html");
