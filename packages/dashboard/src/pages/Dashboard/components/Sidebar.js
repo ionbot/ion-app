@@ -7,8 +7,8 @@ let NavItems = {
     name: "Home",
     icon: FiHome,
   },
-  plugins: {
-    name: "Plugins",
+  modules: {
+    name: "Modules",
     icon: FiBox,
   },
   commands: {
