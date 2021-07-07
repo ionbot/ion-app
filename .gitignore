@@ -102,3 +102,4 @@ package-lock.json
 session.json
 .env
 yarn.lock
+ion-release*
