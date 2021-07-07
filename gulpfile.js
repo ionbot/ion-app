@@ -1,6 +1,5 @@
 const gulp = require("gulp");
 const run = require("gulp-run");
-const uglify = require("gulp-uglify");
 const zip = require("gulp-zip");
 const fs = require("fs");
 const { version } = require("./package.json");
@@ -25,7 +24,7 @@ gulp.task("build-client", (cb) => {
 
 gulp.task("release", (cb) => {
   if (!fs.existsSync("dist")) fs.mkdirSync("dist");
-  gulp.src("packages/bot/build/**").pipe(uglify()).pipe(gulp.dest("dist/"));
+  gulp.src("packages/bot/build/**").pipe(gulp.dest("dist/"));
   gulp.src("packages/bot/package.json").pipe(gulp.dest("dist/"));
   gulp.src("packages/dashboard/build/**").pipe(gulp.dest("dist/dashboard"));
 
