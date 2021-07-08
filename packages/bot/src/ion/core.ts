@@ -1,9 +1,10 @@
 import winston from "winston";
-import { TelegramClient } from "telegram";
+import { Api, TelegramClient } from "telegram";
 import { NewMessage, NewMessageEvent } from "telegram/events";
 import { StringSession } from "telegram/sessions";
 import * as ionConfig from "./config";
 import * as sessionProvider from "./session";
+import escapeStringRegExp from "escape-string-regexp";
 import io from "./socket";
 import VERSION from "../version";
 import { allModules } from "./modules";
@@ -31,14 +32,14 @@ export default new (class Ion {
   private client: TelegramClient | undefined;
   private session: StringSession | undefined;
   private socket: any;
-  private prefix: string = "."; // get from config
+  private prefixes: string | string[] = "."; // get from config
 
   public errorCount: number = 0;
   public config: object = {};
   public loadedModules: any[] = [];
   private apiId: number;
   private apiHash: string;
-  public user: any;
+  public user: Api.User | undefined;
   public botStatus: number;
   public startTime: Date = new Date();
 
@@ -75,7 +76,7 @@ export default new (class Ion {
 
       await this.client.start({ botAuthToken: "" });
 
-      this.user = await this.client.getMe();
+      this.user = (await this.client.getMe()) as Api.User;
       this.botStatus = 1;
 
       logger.info(`logged in as ${this.user.firstName}`);
@@ -84,7 +85,15 @@ export default new (class Ion {
   }
 
   createPattern(text: string | RegExp) {
-    if (typeof text == "string") return new RegExp(`^${this.prefix}${text}`);
+    if (typeof text == "string") {
+      const prefixes = (
+        Array.isArray(this.prefixes) ? this.prefixes : [this.prefixes]
+      )
+        .filter(escapeStringRegExp)
+        .join("|");
+
+      return new RegExp(`^${prefixes}${text}`);
+    }
     return text;
   }
 
