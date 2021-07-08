@@ -26,7 +26,7 @@ gulp.task("release", (cb) => {
   if (!fs.existsSync("dist")) fs.mkdirSync("dist");
   gulp.src("packages/bot/build/**").pipe(gulp.dest("dist/"));
   gulp.src("packages/bot/package.json").pipe(gulp.dest("dist/"));
-  gulp.src("packages/bot/app.json").pipe(gulp.dest("dist/"));
+  gulp.src("app.json").pipe(gulp.dest("dist/"));
   gulp.src("packages/dashboard/build/**").pipe(gulp.dest("dist/dashboard"));
 
   fs.writeFileSync("dist/session.json", JSON.stringify(defaultSession));
