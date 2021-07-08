@@ -2,7 +2,7 @@ import winston from "winston";
 import { TelegramClient } from "telegram";
 import { NewMessage, NewMessageEvent } from "telegram/events";
 import { StringSession } from "telegram/sessions";
-import * as session from "./session";
+import * as sessionProvider from "./session";
 import { readFileSync } from "fs-extra";
 import io from "./socket";
 import VERSION from "../version";
@@ -57,10 +57,10 @@ export default new (class Ion {
 
   async start() {
     this.startTime = new Date();
-    const config = session.load();
-    this.apiId = Number(config.apiId);
-    this.apiHash = config.apiHash;
-    this.session = new StringSession(config.session);
+    const session = sessionProvider.load();
+    this.apiId = Number(session.apiId);
+    this.apiHash = session.apiHash;
+    this.session = new StringSession(session.session);
 
     if (this.session && this.apiHash && this.apiId) {
       this.client = new TelegramClient(this.session, this.apiId, this.apiHash, {
