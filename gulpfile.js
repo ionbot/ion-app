@@ -5,7 +5,7 @@ const fs = require("fs");
 const { version } = require("./lerna.json");
 
 const defaultSession = {
-  apiId: "",
+  apiId: 0,
   apiHash: "",
   session: "",
 };
