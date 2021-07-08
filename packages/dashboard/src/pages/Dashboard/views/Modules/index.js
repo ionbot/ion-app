@@ -14,6 +14,8 @@ import useFetch from "use-http";
 import { RiSettings6Fill, RiForbid2Line } from "react-icons/ri";
 
 export default () => {
+  const [activeModule, setActiveModule] = useState({});
+
   const [modules, setModules] = useState([]); // save loadede modules
   const moduleApi = useFetch("modules");
 
@@ -23,7 +25,9 @@ export default () => {
     });
   }, []);
 
-  const ModuleInfo = ({ name, description }) => {
+  const ModuleInfo = (meta) => {
+    const { name, description } = meta;
+
     return (
       <Box borderWidth="1px" rounded="lg">
         <Flex alignItems="center" bg="gray.100" p={4}>
@@ -35,6 +39,7 @@ export default () => {
               colorScheme="brand"
               size="sm"
               leftIcon={<RiSettings6Fill />}
+              onClick={() => setActiveModule(meta)}
             >
               Config
             </Button>
