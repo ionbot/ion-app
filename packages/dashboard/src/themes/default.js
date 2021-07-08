@@ -1,6 +1,6 @@
-import { extendTheme } from "@chakra-ui/react";
+import { extendTheme, withDefaultColorScheme } from "@chakra-ui/react";
 
-const ionTheme = extendTheme({
+const baseTheme = extendTheme({
   colors: {
     brand: {
       50: "#e6f1fe",
@@ -16,5 +16,10 @@ const ionTheme = extendTheme({
     },
   },
 });
+
+const ionTheme = extendTheme(
+  withDefaultColorScheme({ colorScheme: "brand" }),
+  baseTheme
+);
 
 export default ionTheme;
