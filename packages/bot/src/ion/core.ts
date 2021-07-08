@@ -56,6 +56,7 @@ export default new (class Ion {
   log() {}
 
   async start() {
+    this.startTime = new Date();
     const config = session.load();
     this.apiId = Number(config.apiId);
     this.apiHash = config.apiHash;
