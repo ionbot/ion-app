@@ -27,7 +27,6 @@ import ConfigEditor from "./components/ConfigEditor";
 export default () => {
   const moduleDrawer = useDisclosure();
   const [activeModule, setActiveModule] = useState({});
-  console.log("activeModule", activeModule);
 
   const [modules, setModules] = useState([]); // save loadede modules
   const moduleApi = useFetch("modules");

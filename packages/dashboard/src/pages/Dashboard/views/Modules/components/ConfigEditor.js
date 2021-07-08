@@ -1,12 +1,4 @@
-import {
-  Box,
-  Switch,
-  Text,
-  Textarea,
-  Divider,
-  useBreakpointValue,
-  Spacer,
-} from "@chakra-ui/react";
+import { Box, Switch, Text, Textarea, Divider, Spacer } from "@chakra-ui/react";
 import { useState } from "react";
 
 const Builder = ({ type, value, onChange }) => {
