@@ -8,12 +8,17 @@ import cors from "cors";
 import path from "path";
 import serveStatic from "serve-static";
 import apiRoutes from "./controller/api";
+import { connect } from "mongoose";
 
-const { NODE_ENV } = process.env;
+const { NODE_ENV, MONGO } = process.env;
 
 // import * as errorHandlers from "./middlewares/errors";
 
 /** Express Server */
+connect("mongodb://localhost/ion", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 const app = express();
 app.use(cors());
 app.use(

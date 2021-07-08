@@ -23,8 +23,10 @@ import useFetch from "use-http";
 
 import { RiSettings6Fill, RiForbid2Line } from "react-icons/ri";
 import ConfigEditor from "./components/ConfigEditor";
+import socket from "../../providers/socket.io";
 
 export default () => {
+  const [configValues, setConfigValues] = useState({});
   const moduleDrawer = useDisclosure();
   const [activeModule, setActiveModule] = useState({});
 
@@ -108,14 +110,30 @@ export default () => {
           </DrawerHeader>
 
           <DrawerBody>
-            <ConfigEditor {...activeModule.config} />
+            <ConfigEditor
+              onChange={(data) => {
+                setConfigValues(data);
+              }}
+              configs={activeModule.config}
+              configValues={activeModule.configValues}
+            />
           </DrawerBody>
 
           <DrawerFooter>
             <Button variant="outline" mr={3} onClick={moduleDrawer.onClose}>
               Cancel
             </Button>
-            <Button colorScheme="brand">Save</Button>
+            <Button
+              colorScheme="brand"
+              onClick={() => {
+                socket.emit("update-config", {
+                  module: activeModule.slug,
+                  values: configValues,
+                });
+              }}
+            >
+              Save
+            </Button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>

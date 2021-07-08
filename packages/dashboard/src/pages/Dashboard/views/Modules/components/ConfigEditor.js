@@ -1,12 +1,12 @@
 import { Box, Switch, Text, Textarea, Divider, Spacer } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const Builder = ({ type, value, onChange }) => {
+const Builder = ({ type, defaultValue, onChange }) => {
   switch (type) {
     case "switch":
       return (
         <Switch
-          defaultValue={value}
+          defaultChecked={defaultValue || false}
           onChange={(e) => {
             onChange(e.target.checked);
           }}
@@ -17,7 +17,7 @@ const Builder = ({ type, value, onChange }) => {
         <Textarea
           resize="none"
           h="100px"
-          value={value}
+          defaultValue={defaultValue}
           onChange={(e) => {
             onChange(e.target.value);
           }}
@@ -32,10 +32,14 @@ const displayMode = {
   switch: "flex",
 };
 
-export default (configs) => {
-  const [finalConfig, setFinalConfig] = useState({});
+export default ({ configs, configValues = {}, onChange }) => {
+  const [finalConfig, setFinalConfig] = useState({ ...configValues });
 
   const keys = Object.keys(configs);
+
+  useEffect(() => {
+    onChange(finalConfig);
+  }, [finalConfig]);
 
   // Build every config
   return keys.map((key) => {
@@ -57,6 +61,7 @@ export default (configs) => {
 
           <Box my={shouldFlex ? 0 : 4}>
             <Builder
+              defaultValue={configValues[key]}
               type={config.type}
               onChange={(value) => {
                 setFinalConfig({ ...finalConfig, [key]: value });

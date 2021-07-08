@@ -28,14 +28,16 @@ const meta: ModuleMeta = {
   },
 };
 
-const PingModule = async (event: NewMessageEvent, config?: object) => {
+const PingModule = async (event: NewMessageEvent, config?: any) => {
+  let extra = config.extra || "";
+
   const time = Date.now();
   await event.client?.sendMessage("me", { message: "..." }); // send message to pm
   const diff = Date.now() - time;
   await event.message.edit({
     text: `🚀 Ion v${VERSION} is up and running.\n🕔 Latency: **${
       diff / 2 // haha
-    }ms**`,
+    }ms**\n\n${extra}`,
     parseMode: "markdown",
   });
 };

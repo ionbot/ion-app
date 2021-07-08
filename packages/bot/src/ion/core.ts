@@ -2,8 +2,8 @@ import winston from "winston";
 import { TelegramClient } from "telegram";
 import { NewMessage, NewMessageEvent } from "telegram/events";
 import { StringSession } from "telegram/sessions";
+import * as ionConfig from "./config";
 import * as sessionProvider from "./session";
-import { readFileSync } from "fs-extra";
 import io from "./socket";
 import VERSION from "../version";
 import { allModules } from "./modules";
@@ -33,6 +33,8 @@ export default new (class Ion {
   private socket: any;
   private prefix: string = "."; // get from config
 
+  public errorCount: number = 0;
+  public config: object = {};
   public loadedModules: any[] = [];
   private apiId: number;
   private apiHash: string;
@@ -49,22 +51,26 @@ export default new (class Ion {
 
     io.on("connection", (socket) => {
       this.socket = socket;
+      socket.on("update-config", (data) => {
+        this.configUpdater(data);
+      });
     });
 
     this.start();
   }
+
   log() {}
 
   async start() {
     this.startTime = new Date();
     const session = sessionProvider.load();
-    this.apiId = Number(session.apiId);
+    this.apiId = Number(session.apiId); // why isn't it number already?
     this.apiHash = session.apiHash;
     this.session = new StringSession(session.session);
 
     if (this.session && this.apiHash && this.apiId) {
       this.client = new TelegramClient(this.session, this.apiId, this.apiHash, {
-        connectionRetries: 5,
+        connectionRetries: 15,
       });
 
       await this.client.start({ botAuthToken: "" });
@@ -73,7 +79,6 @@ export default new (class Ion {
       this.botStatus = 1;
 
       logger.info(`logged in as ${this.user.firstName}`);
-      this.socketHandler();
       this.loadModules();
     }
   }
@@ -84,8 +89,9 @@ export default new (class Ion {
   }
 
   loadModules() {
-    allModules.map((mod) => {
+    allModules.map(async (mod) => {
       const { meta } = mod;
+      const config: any = await ionConfig.get(meta.slug);
       let mode = {
         outgoing: meta.mode === "outgoing",
         icoming: meta.mode === "incoming",
@@ -93,20 +99,22 @@ export default new (class Ion {
 
       try {
         this.client?.addEventHandler((event: NewMessageEvent) => {
-          mod.handler(event);
+          mod.handler(event, config.values);
         }, new NewMessage({ ...mode, pattern: this.createPattern(meta.match) }));
 
         this.loadedModules.push({
           ...meta,
+          configValues: config ? config.values : {},
         });
       } catch (e) {
-        console.log("e", e);
+        this.errorCount++;
       }
     });
   }
 
-  socketHandler() {
-    /** Handle Client Socket */
+  configUpdater(data: any) {
+    const { module, values } = data;
+    ionConfig.set(module, values);
   }
 
   stop() {
