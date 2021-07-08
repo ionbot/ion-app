@@ -64,7 +64,7 @@ export default new (class Ion {
 
     if (this.session && this.apiHash && this.apiId) {
       this.client = new TelegramClient(this.session, this.apiId, this.apiHash, {
-        connectionRetries: 5,
+        connectionRetries: 15,
       });
 
       await this.client.start({ botAuthToken: "" });
