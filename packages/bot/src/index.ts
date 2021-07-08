@@ -33,7 +33,7 @@ app.use("/api", apiRoutes);
 
 /** serve dashboard folder only in production */
 
-if (NODE_ENV !== "development") {
+if (NODE_ENV === "production") {
   const dashboard = path.join(__dirname, "/dashboard");
   app.use(serveStatic(dashboard));
   app.get("*", async (req, res) => {
