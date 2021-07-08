@@ -12,7 +12,7 @@ import { FaTelegram } from "react-icons/fa";
 import { SetupStore } from "../../../store/setup.store";
 
 export default () => {
-  const { user } = SetupStore.useState((s) => s.final);
+  const user = SetupStore.useState((s) => s.final);
   if (!user) return null;
 
   return (
@@ -29,7 +29,7 @@ export default () => {
       >
         <AlertIcon boxSize="40px" mr={0} />
         <AlertTitle mt={4} mb={1} fontSize="lg">
-          Welcome, {user.firstName}
+          Welcome, {user}
         </AlertTitle>
         <AlertDescription maxWidth="sm">
           You've successfully setup your user bot, test it by sending (
