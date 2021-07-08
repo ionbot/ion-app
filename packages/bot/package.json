@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "start": "node index.js",
     "dev": "nodemon --ignore 'session.json' --exec ts-node --files src/index.ts",
     "build": "tsc"
   },
