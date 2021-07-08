@@ -11,6 +11,13 @@ const meta: ModuleMeta = {
   match: "ping",
   scope: "all",
   mode: "outgoing",
+
+  config: {
+    message: {
+      title: "Enter custom message",
+      type: "text-multiline",
+    },
+  },
 };
 
 const PingModule = async (event: NewMessageEvent, config?: object) => {
@@ -27,5 +34,5 @@ const PingModule = async (event: NewMessageEvent, config?: object) => {
 
 export default {
   handler: PingModule,
-  ...meta,
+  meta,
 };

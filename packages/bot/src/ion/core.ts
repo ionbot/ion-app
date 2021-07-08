@@ -84,19 +84,19 @@ export default new (class Ion {
 
   loadModules() {
     allModules.map((mod) => {
+      const { meta } = mod;
       let mode = {
-        outgoing: mod.mode === "outgoing",
-        icoming: mod.mode === "incoming",
+        outgoing: meta.mode === "outgoing",
+        icoming: meta.mode === "incoming",
       };
 
       try {
         this.client?.addEventHandler((event: NewMessageEvent) => {
           mod.handler(event);
-        }, new NewMessage({ ...mode, pattern: this.createPattern(mod.match) }));
+        }, new NewMessage({ ...mode, pattern: this.createPattern(meta.match) }));
 
         this.loadedModules.push({
-          name: mod.name,
-          description: mod.description,
+          ...meta,
         });
       } catch (e) {
         console.log("e", e);
