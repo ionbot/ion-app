@@ -1,5 +1,5 @@
 import winston from "winston";
-import { TelegramClient } from "telegram";
+import { Api, TelegramClient } from "telegram";
 import { NewMessage, NewMessageEvent } from "telegram/events";
 import { StringSession } from "telegram/sessions";
 import * as session from "./session";
@@ -36,7 +36,7 @@ export default new (class Ion {
   public loadedModules: any[] = [];
   private apiId: number;
   private apiHash: string;
-  public user: any;
+  public user: Api.User | undefined;
   public botStatus: number;
   public startTime: Date = new Date();
 
@@ -53,6 +53,7 @@ export default new (class Ion {
 
     this.start();
   }
+
   log() {}
 
   async start() {
@@ -69,7 +70,7 @@ export default new (class Ion {
 
       await this.client.start({ botAuthToken: "" });
 
-      this.user = await this.client.getMe();
+      this.user = (await this.client.getMe()) as Api.User;
       this.botStatus = 1;
 
       logger.info(`logged in as ${this.user.firstName}`);
