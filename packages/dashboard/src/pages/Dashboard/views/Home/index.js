@@ -27,7 +27,7 @@ export default () => {
         </GridItem>
 
         <GridItem>
-          <StatusCard title="Errors Occurred" subTitle="2" />
+          <StatusCard title="Errors Occurred" subTitle="0" />
         </GridItem>
       </SimpleGrid>
     </Box>
