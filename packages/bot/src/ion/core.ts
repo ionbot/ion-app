@@ -4,7 +4,6 @@ import { NewMessage, NewMessageEvent } from "telegram/events";
 import { StringSession } from "telegram/sessions";
 import * as ionConfig from "./config";
 import * as sessionProvider from "./session";
-import escapeStringRegExp from "escape-string-regexp";
 import io from "./socket";
 import VERSION from "../version";
 import { allModules } from "./modules";
@@ -88,9 +87,7 @@ export default new (class Ion {
     if (typeof text == "string") {
       const prefixes = (
         Array.isArray(this.prefixes) ? this.prefixes : [this.prefixes]
-      )
-        .filter(escapeStringRegExp)
-        .join("|");
+      ).join("|");
 
       return new RegExp(`^${prefixes}${text}`);
     }
