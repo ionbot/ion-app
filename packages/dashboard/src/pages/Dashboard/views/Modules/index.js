@@ -8,8 +8,10 @@ import {
   Flex,
   Button,
   Spacer,
+  ButtonGroup,
 } from "@chakra-ui/react";
 import useFetch from "use-http";
+import { RiSettings6Fill, RiForbid2Line } from "react-icons/ri";
 
 export default () => {
   const [modules, setModules] = useState([]); // save loadede modules
@@ -27,9 +29,20 @@ export default () => {
         <Flex alignItems="center" bg="gray.100" p={4}>
           <Heading size="md">{name}</Heading>
           <Spacer />
-          <Button colorScheme="red" size="sm">
-            Unload
-          </Button>
+
+          <ButtonGroup>
+            <Button
+              colorScheme="brand"
+              size="sm"
+              leftIcon={<RiSettings6Fill />}
+            >
+              Config
+            </Button>
+
+            <Button colorScheme="red" size="sm" leftIcon={<RiForbid2Line />}>
+              Disable
+            </Button>
+          </ButtonGroup>
         </Flex>
         <Text mt={2} p={4}>
           {description}
@@ -41,7 +54,7 @@ export default () => {
   return (
     <Box>
       <Heading size="md">Active Modules</Heading>
-      <SimpleGrid columns={4} mt={4}>
+      <SimpleGrid columns={{ base: 1, lg: 2, xl: 3 }} mt={4}>
         {modules.map((info) => (
           <GridItem>
             <ModuleInfo {...info} />
