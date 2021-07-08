@@ -13,9 +13,17 @@ const meta: ModuleMeta = {
   mode: "outgoing",
 
   config: {
-    message: {
-      title: "Enter custom message",
-      type: "text-multiline",
+    showLatency: {
+      info: "Display Latency",
+      description:
+        "If you want latency to be displayed with the message enabled this",
+      type: "switch",
+    },
+    extra: {
+      info: "Extra Message",
+      description:
+        "This will add the provided text at the latest of ping response",
+      type: "text",
     },
   },
 };
