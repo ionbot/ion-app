@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "concurrently --kill-others \"yarn dev:client\" \"yarn dev:server\"",
-    "build": "lerna run build --stream",
+    "build": "gulp",
     "prepare": "npm run build",
     "dev:server": "lerna run dev --scope bot --stream",
     "dev:client": "lerna run dev --scope dashboard",
