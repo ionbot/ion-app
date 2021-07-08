@@ -3,7 +3,7 @@ import { Api, TelegramClient } from "telegram";
 import { NewMessage, NewMessageEvent } from "telegram/events";
 import { StringSession } from "telegram/sessions";
 import * as session from "./session";
-import { readFileSync } from "fs-extra";
+import escapeStringRegExp from "escape-string-regexp";
 import io from "./socket";
 import VERSION from "../version";
 import { allModules } from "./modules";
@@ -31,7 +31,7 @@ export default new (class Ion {
   private client: TelegramClient | undefined;
   private session: StringSession | undefined;
   private socket: any;
-  private prefix: string = "."; // get from config
+  private prefixes: string | string[] = "."; // get from config
 
   public loadedModules: any[] = [];
   private apiId: number;
@@ -80,7 +80,15 @@ export default new (class Ion {
   }
 
   createPattern(text: string | RegExp) {
-    if (typeof text == "string") return new RegExp(`^${this.prefix}${text}`);
+    if (typeof text == "string") {
+      const prefixes = (
+        Array.isArray(this.prefixes) ? this.prefixes : [this.prefixes]
+      )
+        .filter(escapeStringRegExp)
+        .join("|");
+
+      return new RegExp(`^${prefixes}${text}`);
+    }
     return text;
   }
 
