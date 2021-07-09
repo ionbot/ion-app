@@ -55,6 +55,9 @@ export default new (class Ion {
       socket.on("update-config", (data) => {
         this.configUpdater(data);
       });
+      socket.on("stop-bot", () => {
+        this.stopBot();
+      });
     });
 
     this.start();
@@ -65,7 +68,7 @@ export default new (class Ion {
   async start() {
     this.startTime = new Date();
     const session = sessionProvider.load();
-    this.apiId = Number(session.apiId); // why isn't it number already?
+    this.apiId = Number(session.apiId);
     this.apiHash = session.apiHash;
     this.session = new StringSession(session.session);
 
@@ -126,6 +129,7 @@ export default new (class Ion {
 
   stopBot() {
     this.botStatus = 0;
+    this.client?.destroy();
     /** stop user bot */
   }
 })();
