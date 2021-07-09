@@ -64,6 +64,8 @@ export default class Client extends ConfigUpdater {
 
       await this.client.start({ botAuthToken: "" });
 
+      this.loadModules();
+
       this.user = (await this.client.getMe()) as Api.User;
       this.status = 1;
 
@@ -81,4 +83,6 @@ export default class Client extends ConfigUpdater {
     socket.emit("bot-status", 0);
     /** stop user bot */
   }
+
+  loadModules() {}
 }
