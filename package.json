@@ -7,7 +7,6 @@
   "scripts": {
     "dev": "concurrently --kill-others \"yarn dev:client\" \"yarn dev:server\"",
     "build": "gulp",
-    "prepare": "npm run build",
     "dev:server": "lerna run dev --scope bot --stream",
     "dev:client": "lerna run dev --scope dashboard",
     "build:server": "lerna run build --scope bot --stream",
