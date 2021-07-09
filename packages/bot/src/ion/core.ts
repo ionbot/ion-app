@@ -122,6 +122,8 @@ export default new (class Ion {
      * Also get module configuration from database
      */
 
+    this.loadedModules = []; // delete all previous loaded modules
+
     allModules.map(async (mod) => {
       const { meta } = mod;
       const config: any = await moduleConfig.get(meta.slug);
