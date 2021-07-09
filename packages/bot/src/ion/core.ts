@@ -20,8 +20,7 @@ const logger = winston.createLogger({
   transports: [], //todo: add file logging
 });
 
-const escapeForRegExp = (s:string) =>s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
-
+const escapeForRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
 
 if (env.NODE_ENV !== "production") {
   logger.add(
@@ -107,7 +106,11 @@ export default new (class Ion {
 
   createPattern(text: string | RegExp) {
     if (typeof text == "string") {
-      return new RegExp(`^${this.prefixes.filter(escapeForRegExp).join('|')}${escapeForRegExp(text)}`);
+      return new RegExp(
+        `^${this.prefixes.filter(escapeForRegExp).join("|")}${escapeForRegExp(
+          text
+        )}`
+      );
     }
 
     return text;
@@ -121,21 +124,20 @@ export default new (class Ion {
 
     allModules.map(async (mod) => {
       const { meta } = mod;
-      const config: any = await moduleConfig.get(meta.slug);
       let mode = {
         outgoing: meta.mode === "outgoing",
         icoming: meta.mode === "incoming",
       };
 
       try {
-        this.client?.addEventHandler((event: NewMessageEvent) => {
+        this.client?.addEventHandler(async (event: NewMessageEvent) => {
+          const config: any = await moduleConfig.get(meta.slug);
           mod.handler(event, config.values);
+          this.loadedModules.push({
+            ...meta,
+            configValues: config ? config.values : {},
+          });
         }, new NewMessage({ ...mode, pattern: this.createPattern(meta.match) }));
-
-        this.loadedModules.push({
-          ...meta,
-          configValues: config ? config.values : {},
-        });
       } catch (e) {
         this.errorCount++;
       }
