@@ -30,7 +30,7 @@ gulp.task("release", (cb) => {
   gulp.src("packages/dashboard/build/**").pipe(gulp.dest("dist/dashboard"));
 
   fs.writeFileSync("dist/session.json", JSON.stringify(defaultSession));
-  fs.writeFileSync("dist/.env", "NODE_ENV=production");
+  fs.writeFileSync("dist/.env", `NODE_ENV=production\nMONGO=`);
 
   gulp
     .src("dist/**")
