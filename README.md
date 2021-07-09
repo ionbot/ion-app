@@ -18,7 +18,7 @@ Ion is an open source Telegram user bot with built-in web based admin dashboard 
 
 There are two ways you can install Ion on your PC/Android. To install and host on Android, follow <a href="https://xen.codes/install-ion-on-android" target="_blank">this post</a>.
 
-### Method 1 (recommended)
+### Method 1 (not recommended)
 
 This is the easiest way to install Ion, run the following commands:
  ```shell
@@ -34,9 +34,11 @@ This is the easiest way to install Ion, run the following commands:
 For this method you will need to manually download  the latest release from GitHub page, then extract the zip file, and using the following command to setup.
 
 ```bash
-cd folder-name
+git clone https://github.com/ionbot/ion-app
+cd ion-app
+npx lerna bootstrap
 yarn
-node index.js
+yarn dev
 ```
 
 
