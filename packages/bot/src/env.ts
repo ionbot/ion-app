@@ -5,5 +5,6 @@ dotenv.config();
 
 export default cleanEnv(process.env, {
   PORT: port({ default: 4200 }),
+  NODE_ENV: str({ default: "development" }),
   MONGO: str({ default: "mongodb://localhost/ion" }),
 });
