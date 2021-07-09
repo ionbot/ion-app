@@ -38,8 +38,11 @@ git clone https://github.com/ionbot/ion-app
 cd ion-app
 npx lerna bootstrap
 yarn
+// create .env file in packages/bot folder and add MONGO=[mongo_url]
 yarn dev
 ```
+
+
 
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/ionbot/ion-app/)
