@@ -51,6 +51,10 @@ export default new (class Ion {
     this.botStatus = 0;
 
     io.on("connection", (socket) => {
+      /**
+       * This will hanlde all the socket events
+       */
+
       this.socket = socket;
       socket.on("update-config", (data) => {
         this.configUpdater(data);
@@ -66,6 +70,11 @@ export default new (class Ion {
   log() {}
 
   async start() {
+    /**
+     * Starts the bot, and updates the start time.
+     * If started, load all modules
+     */
+
     this.startTime = new Date();
     const session = sessionProvider.load();
     this.apiId = Number(session.apiId);
@@ -99,6 +108,11 @@ export default new (class Ion {
   }
 
   loadModules() {
+    /**
+     * Loads Each Module by mapping.
+     * Also get module configuration from database
+     */
+
     allModules.map(async (mod) => {
       const { meta } = mod;
       const config: any = await moduleConfig.get(meta.slug);
