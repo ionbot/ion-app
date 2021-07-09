@@ -9,6 +9,10 @@ const UserBotStore = new Store({
 });
 
 socket.on("bot-status", (status) => {
+  if (status == 1) {
+    socket.emit("load-modules");
+  }
+
   UserBotStore.update((s) => {
     s.status = status;
   });
