@@ -25,24 +25,20 @@ if (env.NODE_ENV !== "production") {
 }
 
 export default class Client extends ConfigUpdater {
-  client: TelegramClient | undefined;
-  config: object = {};
-  status: number;
-  startTime: Date;
+  client?: TelegramClient;
+  user?: Api.User;
+  startTime: Date = new Date();
+  status: number = 0;
   errorCount: number = 0;
 
-  private session: StringSession | undefined;
-  private apiId: number;
-  private apiHash: string;
+  private session?: StringSession;
+  private apiId?: number;
+  private apiHash?: string;
 
   constructor() {
     super();
 
     logger.info(`Initializing Ion v${VERSION}`);
-
-    this.apiId = 0;
-    this.apiHash = "";
-    this.status = 0;
 
     this.start();
   }
@@ -68,10 +64,10 @@ export default class Client extends ConfigUpdater {
 
       await this.client.start({ botAuthToken: "" });
 
-      const user = (await this.client.getMe()) as Api.User;
+      this.user = (await this.client.getMe()) as Api.User;
       this.status = 1;
 
-      logger.info(`logged in as ${user.firstName}`);
+      logger.info(`Logged in as ${this.user.firstName}`);
 
       if (socket) {
         socket.emit("bot-status", 1);

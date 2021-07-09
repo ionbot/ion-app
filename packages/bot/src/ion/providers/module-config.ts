@@ -9,6 +9,7 @@ export const get = async (module: string) => {
     console.log("error", error);
   }
 };
+
 export const set = async (module: string, values: object) => {
   try {
     await ModuleConfigs.create({

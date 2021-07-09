@@ -18,6 +18,7 @@ else sessionFile = path.join(__dirname, "../../session.json");
 export const save = (session: Session) => {
   writeJSONSync(sessionFile, { ...session });
 };
+
 export const load = (): Session => {
   if (existsSync(sessionFile)) {
     return readJSONSync(sessionFile);

@@ -4,7 +4,7 @@ import Ion from "../ion/core";
 import VERSION from "../version";
 
 export const getUserBot = async () => {
-  const status = Ion.botStatus;
+  const status = Ion.status;
 
   return {
     profile: Ion.user,
