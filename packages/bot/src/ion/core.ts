@@ -1,7 +1,10 @@
+import env from "../env";
 import winston from "winston";
 import { Api, TelegramClient } from "telegram";
 import { NewMessage, NewMessageEvent } from "telegram/events";
+
 import { StringSession } from "telegram/sessions";
+import * as appConfig from "./providers/app-config";
 import * as moduleConfig from "./providers/module-config";
 import * as sessionProvider from "./providers/session";
 import io from "./socket";
@@ -11,15 +14,13 @@ import { allModules } from "./modules";
 import { Logger } from "telegram/extensions";
 Logger.setLevel("errors");
 
-const { NODE_ENV } = process.env;
-
 const logger = winston.createLogger({
   level: "info",
   format: winston.format.json(),
   transports: [], //todo: add file logging
 });
 
-if (NODE_ENV !== "production") {
+if (env.NODE_ENV !== "production") {
   logger.add(
     new winston.transports.Console({
       format: winston.format.simple(),
@@ -31,7 +32,7 @@ export default new (class Ion {
   private client: TelegramClient | undefined;
   private session: StringSession | undefined;
   private socket: any;
-  private prefixes: string | string[] = "."; // get from config
+  private prefixes: string | string[] = appConfig.load("prefix"); // get from config
 
   public errorCount: number = 0;
   public config: object = {};
@@ -123,7 +124,7 @@ export default new (class Ion {
     moduleConfig.set(module, values);
   }
 
-  stop() {
+  stopBot() {
     this.botStatus = 0;
     /** stop user bot */
   }
