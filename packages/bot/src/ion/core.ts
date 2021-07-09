@@ -20,6 +20,9 @@ const logger = winston.createLogger({
   transports: [], //todo: add file logging
 });
 
+const escapeForRegExp = (s:string) =>s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+
+
 if (env.NODE_ENV !== "production") {
   logger.add(
     new winston.transports.Console({
@@ -104,7 +107,7 @@ export default new (class Ion {
 
   createPattern(text: string | RegExp) {
     if (typeof text == "string") {
-      return new RegExp(`^${this.prefixes.join('|')}${text}`);
+      return new RegExp(`^${this.prefixes.filter(escapeForRegExp).join('|')}${escapeForRegExp(text)}`);
     }
 
     return text;
