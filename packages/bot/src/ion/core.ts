@@ -124,6 +124,7 @@ export default new (class Ion {
 
     allModules.map(async (mod) => {
       const { meta } = mod;
+      const config: any = await moduleConfig.get(meta.slug);
       let mode = {
         outgoing: meta.mode === "outgoing",
         icoming: meta.mode === "incoming",
@@ -131,16 +132,18 @@ export default new (class Ion {
 
       try {
         this.client?.addEventHandler(async (event: NewMessageEvent) => {
+          // Fetch config again from db for make changes live
           const config: any = await moduleConfig.get(meta.slug);
-          mod.handler(event, config.values);
-          this.loadedModules.push({
-            ...meta,
-            configValues: config ? config.values : {},
-          });
+          mod.handler(event, config ? config.values : {});
         }, new NewMessage({ ...mode, pattern: this.createPattern(meta.match) }));
       } catch (e) {
         this.errorCount++;
       }
+
+      this.loadedModules.push({
+        ...meta,
+        configValues: config ? config.values : {},
+      });
     });
   }
 
