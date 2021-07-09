@@ -3,7 +3,7 @@ import { Api, TelegramClient } from "telegram";
 import { NewMessage, NewMessageEvent } from "telegram/events";
 import { StringSession } from "telegram/sessions";
 import * as moduleConfig from "./providers/module-config";
-import * as sessionProvider from "./session";
+import * as sessionProvider from "./providers/session";
 import io from "./socket";
 import VERSION from "../version";
 import { allModules } from "./modules";

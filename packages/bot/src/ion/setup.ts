@@ -1,7 +1,7 @@
 import { Api, TelegramClient } from "telegram";
 import { StringSession } from "telegram/sessions";
 import Ion from "./core";
-import * as session from "./session";
+import * as session from "./providers/session";
 import io from "./socket";
 
 io.on("connection", (socket) => {
