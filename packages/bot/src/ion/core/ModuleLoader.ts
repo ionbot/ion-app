@@ -3,7 +3,6 @@ import * as appConfig from "../providers/app-config";
 import * as moduleConfig from "../providers/module-config";
 import { allModules } from "../modules";
 import Client from "./Client";
-import io from "../socket";
 
 const escapeForRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
@@ -13,10 +12,6 @@ export default class ModuleLoader extends Client {
 
   constructor() {
     super();
-
-    io.on("connection", (socket) => {
-      socket.on("load-modules", this.loadModules);
-    });
   }
 
   createPattern(text: string | RegExp) {
