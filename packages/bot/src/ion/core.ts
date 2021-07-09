@@ -31,7 +31,7 @@ if (env.NODE_ENV !== "production") {
 export default new (class Ion {
   private client: TelegramClient | undefined;
   private session: StringSession | undefined;
-  private prefixes: string | string[] = appConfig.load("prefix"); // get from config
+  private prefixes: string[] = appConfig.load("prefixes").split(/\s/); // get from config
 
   public errorCount: number = 0;
   public config: object = {};
@@ -104,12 +104,9 @@ export default new (class Ion {
 
   createPattern(text: string | RegExp) {
     if (typeof text == "string") {
-      const prefixes = (
-        Array.isArray(this.prefixes) ? this.prefixes : [this.prefixes]
-      ).join("|");
-
-      return new RegExp(`^${prefixes}${text}`);
+      return new RegExp(`^${this.prefixes.join('|')}${text}`);
     }
+
     return text;
   }
 
