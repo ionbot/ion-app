@@ -3,7 +3,7 @@ import { readJSONSync, writeJSONSync, existsSync } from "fs-extra";
 import path from "path";
 
 export interface IConfig {
-  prefix: string;
+  prefixes: string;
 }
 
 let configFile: string;
@@ -13,7 +13,7 @@ if (env.NODE_ENV === "development")
 else configFile = path.join(__dirname, "../config.json");
 
 const defaults: any = {
-  prefix: ".",
+  prefixes: ". ,",
 };
 
 const getConfigs = () => {
