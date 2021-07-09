@@ -16,13 +16,13 @@ const meta: ModuleMeta = {
     showLatency: {
       info: "Display Latency",
       description:
-        "If you want latency to be displayed with the message enabled this",
+        "If you want latency to be displayed with the message enabled this.",
       type: "switch",
     },
     extra: {
       info: "Extra Message",
       description:
-        "This will add the provided text at the latest of ping response",
+        "This will add the provided text at the latest of ping response.",
       type: "text",
     },
   },
@@ -34,10 +34,18 @@ const PingModule = async (event: NewMessageEvent, config?: any) => {
   const time = Date.now();
   await event.client?.sendMessage("me", { message: "..." }); // send message to pm
   const diff = Date.now() - time;
+
+  const latency = `🕔 Latency: **${
+    diff / 2 // haha
+  }ms**\n`;
+
+  let text = `🚀 Ion v${VERSION} is up and running.\n`;
+
+  text += config.showLatency ? latency : "";
+  text += config.extra ? extra : "";
+
   await event.message.edit({
-    text: `🚀 Ion v${VERSION} is up and running.\n🕔 Latency: **${
-      diff / 2 // haha
-    }ms**\n\n${extra}`,
+    text,
     parseMode: "markdown",
   });
 };
