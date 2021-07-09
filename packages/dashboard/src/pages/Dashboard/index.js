@@ -7,6 +7,7 @@ import socket from "./providers/socket.io";
 import Home from "./views/Home";
 import Commands from "./views/Commands";
 import Modules from "./views/Modules";
+import Settings from "./views/Settings";
 
 const Dashboard = ({ match }) => {
   let { view } = match.params;
@@ -26,6 +27,8 @@ const Dashboard = ({ match }) => {
         return <Modules />;
       case "commands":
         return <Commands />;
+      case "settings":
+        return <Settings />;
       default:
         return <Redirect to="/home" />;
     }

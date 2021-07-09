@@ -58,7 +58,11 @@ export default new (class Ion {
         this.configUpdater(data);
       });
       socket.on("stop-bot", () => {
-        this.stopBot();
+        this.stopBot(socket);
+      });
+
+      socket.on("start-bot", () => {
+        this.start(socket);
       });
     });
 
@@ -67,7 +71,7 @@ export default new (class Ion {
 
   log() {}
 
-  async start() {
+  async start(socket?: any) {
     /**
      * Starts the bot, and updates the start time.
      * If started, load all modules
@@ -91,6 +95,10 @@ export default new (class Ion {
 
       logger.info(`logged in as ${this.user.firstName}`);
       this.loadModules();
+
+      if (socket) {
+        socket.emit("bot-status", 1);
+      }
     }
   }
 
@@ -139,9 +147,10 @@ export default new (class Ion {
     moduleConfig.set(module, values);
   }
 
-  async stopBot() {
+  async stopBot(socket: any) {
     this.botStatus = 0;
     await this.client?.destroy();
+    socket.emit("bot-status", 0);
     return;
     /** stop user bot */
   }
