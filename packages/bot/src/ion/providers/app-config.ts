@@ -35,5 +35,9 @@ export const save = (key: string, value: any) => {
 };
 export const load = (key: string): any => {
   const configs: any = getConfigs();
-  return configs[key];
+  let _config = configs[key];
+  if (!_config) {
+    _config = defaults[key];
+  }
+  return _config;
 };
