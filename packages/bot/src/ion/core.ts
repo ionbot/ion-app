@@ -139,9 +139,10 @@ export default new (class Ion {
     moduleConfig.set(module, values);
   }
 
-  stopBot() {
+  async stopBot() {
     this.botStatus = 0;
-    this.client?.destroy();
+    await this.client?.destroy();
+    return;
     /** stop user bot */
   }
 })();
