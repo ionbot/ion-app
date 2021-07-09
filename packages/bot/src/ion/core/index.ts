@@ -6,10 +6,15 @@ export default new (class Ion extends ModuleLoader {
     super();
 
     io.on("connection", (socket) => {
-      socket.on("start-bot", () => this.start(socket));
+      socket.on("start-bot", async () => {
+        await this.start(socket);
+
+        if (this.status == 1) {
+          this.loadModules();
+        }
+      });
       socket.on("stop-bot", () => this.stop(socket));
       socket.on("update-config", this.configUpdater);
-      socket.on("load-modules", this.loadModules);
     });
   }
 })();
