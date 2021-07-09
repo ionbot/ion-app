@@ -107,7 +107,7 @@ export default new (class Ion {
 
   createPattern(text: string | RegExp) {
     if (typeof text == "string") {
-      return new RegExp(`^${this.prefixes.filter(escapeForRegExp).join('|')}${escapeForRegExp(text)}`);
+      return new RegExp(`^(${this.prefixes.filter(escapeForRegExp).join('|')})${escapeForRegExp(text)}`);
     }
 
     return text;
