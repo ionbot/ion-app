@@ -31,7 +31,6 @@ if (env.NODE_ENV !== "production") {
 export default new (class Ion {
   private client: TelegramClient | undefined;
   private session: StringSession | undefined;
-  private socket: any;
   private prefixes: string | string[] = appConfig.load("prefix"); // get from config
 
   public errorCount: number = 0;
@@ -55,7 +54,6 @@ export default new (class Ion {
        * This will hanlde all the socket events
        */
 
-      this.socket = socket;
       socket.on("update-config", (data) => {
         this.configUpdater(data);
       });
