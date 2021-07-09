@@ -1,5 +1,12 @@
 import { Box, Flex, Icon, Text } from "@chakra-ui/react";
-import { FiBook, FiBox, FiSettings, FiCode, FiHome } from "react-icons/fi";
+import {
+  FiBook,
+  FiBox,
+  FiSettings,
+  FiCode,
+  FiHome,
+  FiClipboard,
+} from "react-icons/fi";
 import { useHistory } from "react-router-dom";
 
 let NavItems = {
@@ -16,8 +23,12 @@ let NavItems = {
     icon: FiCode,
   },
   collections: {
-    name: "Notes",
+    name: "Collections",
     icon: FiBook,
+  },
+  logs: {
+    name: "Logs",
+    icon: FiClipboard,
   },
   settings: {
     name: "Settings",
