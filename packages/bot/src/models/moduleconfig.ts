@@ -1,11 +1,11 @@
 import { model, Schema } from "mongoose";
 
-interface IConfig {
+interface IModuleConfigs {
   module: string;
   values: object;
 }
 
-const schema = new Schema<IConfig>({
+const schema = new Schema<IModuleConfigs>({
   module: {
     type: String,
     unique: true,
@@ -16,5 +16,5 @@ const schema = new Schema<IConfig>({
   },
 });
 
-const Config = model<IConfig>("Configs", schema);
-export { Config };
+const ModuleConfigs = model<IModuleConfigs>("ModuleConfigs", schema);
+export { ModuleConfigs };

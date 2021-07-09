@@ -1,23 +1,23 @@
 /** Db Configuration Provider */
 
-import { Config } from "../models/config";
+import { ModuleConfigs } from "../../models/moduleconfig";
 
 export const get = async (module: string) => {
   try {
-    return await Config.findOne({ module });
+    return await ModuleConfigs.findOne({ module });
   } catch (error) {
     console.log("error", error);
   }
 };
 export const set = async (module: string, values: object) => {
   try {
-    await Config.create({
+    await ModuleConfigs.create({
       module,
       values,
     });
   } catch (e) {
     if (String(e).includes("E11000")) {
-      await Config.findOneAndUpdate({ module }, { values });
+      await ModuleConfigs.findOneAndUpdate({ module }, { values });
     }
   }
 };

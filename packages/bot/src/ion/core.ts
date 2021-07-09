@@ -2,7 +2,7 @@ import winston from "winston";
 import { Api, TelegramClient } from "telegram";
 import { NewMessage, NewMessageEvent } from "telegram/events";
 import { StringSession } from "telegram/sessions";
-import * as ionConfig from "./config";
+import * as moduleConfig from "./providers/module-config";
 import * as sessionProvider from "./session";
 import io from "./socket";
 import VERSION from "../version";
@@ -97,7 +97,7 @@ export default new (class Ion {
   loadModules() {
     allModules.map(async (mod) => {
       const { meta } = mod;
-      const config: any = await ionConfig.get(meta.slug);
+      const config: any = await moduleConfig.get(meta.slug);
       let mode = {
         outgoing: meta.mode === "outgoing",
         icoming: meta.mode === "incoming",
@@ -120,7 +120,7 @@ export default new (class Ion {
 
   configUpdater(data: any) {
     const { module, values } = data;
-    ionConfig.set(module, values);
+    moduleConfig.set(module, values);
   }
 
   stop() {
