@@ -10,15 +10,19 @@ import serveStatic from "serve-static";
 import apiRoutes from "./controller/api";
 import { connect } from "mongoose";
 
-const { NODE_ENV, MONGO } = process.env;
+try {
+  // Try to connect to MongoDB
 
-// import * as errorHandlers from "./middlewares/errors";
-
+  connect(env.MONGO, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+} catch (e) {
+  console.log("Error connected to database");
+  console.log(e);
+  process.exit(0);
+}
 /** Express Server */
-connect("mongodb://localhost/ion", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
 const app = express();
 app.use(cors());
 app.use(
@@ -38,7 +42,7 @@ app.use("/api", apiRoutes);
 
 /** serve dashboard folder only in production */
 
-if (NODE_ENV === "production") {
+if (env.NODE_ENV === "production") {
   const dashboard = path.join(__dirname, "/dashboard");
   app.use(serveStatic(dashboard));
   app.get("*", async (req, res) => {
