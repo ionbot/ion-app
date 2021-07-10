@@ -88,7 +88,7 @@ export default () => {
           Browse Modules
         </Button>
       </Flex>
-      <SimpleGrid columns={{ base: 1, lg: 2, xl: 3 }} mt={4}>
+      <SimpleGrid columns={{ base: 1, lg: 2, xl: 3 }} mt={4} spacing={2}>
         {renderAllModules}
       </SimpleGrid>
 
