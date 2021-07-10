@@ -15,14 +15,12 @@ const meta: ModuleMeta = {
   config: {
     showLatency: {
       info: "Display Latency",
-      description:
-        "If you want latency to be displayed with the message enabled this.",
+      description: "Enable this to display the latency along in the message",
       type: "switch",
     },
     extra: {
       info: "Extra Message",
-      description:
-        "This will add the provided text at the latest of ping response.",
+      description: "You can extra message in the response for ping command",
       type: "text",
     },
   },
