@@ -1,7 +1,7 @@
 import io from "../socket";
 import ModuleLoader from "./ModuleLoader";
 
-export default new (class Ion extends ModuleLoader {
+export default new (class extends ModuleLoader {
   constructor() {
     super();
 

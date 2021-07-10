@@ -6,7 +6,7 @@ import Client from "./Client";
 
 const escapeForRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
-export default class ModuleLoader extends Client {
+export default class extends Client {
   private prefixes: string[] = appConfig.load("prefixes").split(/\s/);
   public loadedModules: any[] = [];
 

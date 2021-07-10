@@ -24,7 +24,7 @@ if (env.NODE_ENV !== "production") {
   );
 }
 
-export default class Client extends ConfigUpdater {
+export default class extends ConfigUpdater {
   client?: TelegramClient;
   user?: Api.User;
   startTime: Date = new Date();
