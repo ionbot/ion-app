@@ -1,6 +1,6 @@
 import * as moduleConfig from "../providers/module-config";
 
-export default class Client {
+export default class ConfigUpdater {
   config: object = {};
 
   configUpdater(data: any) {
