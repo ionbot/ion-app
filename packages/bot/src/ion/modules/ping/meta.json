@@ -15,7 +15,7 @@
     },
     "extra": {
       "info": "Extra Message",
-      "description": "You can extra message in the response for ping command",
+      "description": "Type here your message to add it in the ping command's response",
       "type": "text"
     }
   }
