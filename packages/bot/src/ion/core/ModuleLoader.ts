@@ -39,7 +39,7 @@ export default class extends Client {
       const config: any = await moduleConfig.get(meta.slug);
       let mode = {
         outgoing: meta.mode === "outgoing",
-        icoming: meta.mode === "incoming",
+        incoming: meta.mode === "incoming",
       };
 
       try {
