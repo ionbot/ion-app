@@ -43,7 +43,7 @@ export default () => {
     const { name, description } = meta;
 
     return (
-      <Box borderWidth="1px" rounded="lg">
+      <Box borderWidth="1px" rounded="lg" h={"160"}>
         <Flex alignItems="center" bg="gray.100" p={4}>
           <Heading size="md">{name}</Heading>
           <Spacer />
@@ -66,7 +66,7 @@ export default () => {
             </Button>
           </ButtonGroup>
         </Flex>
-        <Text mt={2} p={4}>
+        <Text mt={2} p={4} noOfLines={2}>
           {description}
         </Text>
       </Box>
