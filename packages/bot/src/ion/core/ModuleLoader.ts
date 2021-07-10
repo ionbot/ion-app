@@ -43,11 +43,21 @@ export default class extends Client {
       };
 
       try {
-        this.client?.addEventHandler(async (event: NewMessageEvent) => {
-          // Fetch config again from db for make changes live
-          const config: any = await moduleConfig.get(meta.slug);
-          mod.handler(event, config ? config.values : {});
-        }, new NewMessage({ ...mode, pattern: this.createPattern(meta.match) }));
+        this.client?.addEventHandler(
+          async (event: NewMessageEvent) => {
+            // Fetch config again from db for make changes live
+            const config: any = await moduleConfig.get(meta.slug);
+            mod.handler(event, config ? config.values : {});
+          },
+          new NewMessage({
+            ...mode,
+            func: (event) => {
+              return Boolean(
+                event.message.message?.match(this.createPattern(meta.match))
+              );
+            },
+          })
+        );
       } catch (e) {
         this.errorCount++;
       }
