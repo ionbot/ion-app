@@ -1,4 +1,5 @@
-import Ping from "./ping";
+import eval from "./eval";
+import ping from "./ping";
 
 export interface ModuleMeta {
   name: string;
@@ -10,4 +11,4 @@ export interface ModuleMeta {
   config?: object;
 }
 
-export const allModules = [Ping];
+export const allModules = [ping, eval];
