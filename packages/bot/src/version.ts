@@ -1,5 +1,6 @@
-const { NODE_ENV } = process.env;
-const { version: VERSION } = require(NODE_ENV === "development"
+import env from "./env";
+
+const { version: VERSION } = require(env.NODE_ENV === "development"
   ? "../package.json"
   : "./package.json");
 
