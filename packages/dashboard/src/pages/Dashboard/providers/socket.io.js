@@ -1,3 +1,5 @@
 import { io } from "socket.io-client";
-const socket = io("http://localhost:8000", { transports: ["websocket"] });
+let { REACT_APP_HOST: HOST } = process.env;
+
+const socket = io(HOST, { transports: ["websocket"] });
 export default socket;
