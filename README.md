@@ -1,7 +1,8 @@
 
+
 # Ion Bot
 
-<img src="https://i.imgur.com/33AXQt7.png" alt="ion"  />
+![logo512 copy 2](https://user-images.githubusercontent.com/31907722/125200919-98b07f00-e28a-11eb-8f49-cc3514cd34e0.png)
  
 
 Ion is an open source Telegram user bot with built-in web based admin dashboard which gives you ability to manage your user bot, install plugins, add custom commands and more.
@@ -24,8 +25,7 @@ This is the easiest way to install Ion, run the following commands:
  ```shell
  npm i -g @ionapp/cli
  ion --init
- cd folder-name
- yarn
+ cd ion-main
  node index.js
  ```
 
