@@ -1,6 +1,7 @@
 import env from "./env";
 
 import "./ion/setup";
+import http from "http";
 import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
@@ -9,6 +10,7 @@ import path from "path";
 import serveStatic from "serve-static";
 import apiRoutes from "./controller/api";
 import { connect } from "mongoose";
+import io from "./ion/socket";
 
 try {
   // Try to connect to MongoDB
@@ -60,8 +62,10 @@ if (env.NODE_ENV === "development") {
 
 module.exports = {
   start: () => {
-    server.listen(env.PORT, () =>
-      console.log(`Dashboard is running on port: ${env.PORT}`)
-    );
+    const _s = server.listen(env.PORT, () => {
+      console.log(`Dashboard is running on port: ${env.PORT}`);
+    });
+
+    io.listen(_s);
   },
 };
