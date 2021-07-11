@@ -1,4 +1,3 @@
-import { Api } from "telegram";
 import { NewMessageEvent } from "telegram/events";
 import VERSION from "../../../version";
 
@@ -28,6 +27,13 @@ const GetUserID = async (event: NewMessageEvent) => {
   });
 };
 
+const GitHubRepo = (event: NewMessageEvent) => {
+  event.message.edit({
+    text: `<a href="https://github.com/ionbot/ion-app">Source Ion v(${VERSION})</a>`,
+    parseMode: "html",
+  });
+};
+
 const ExtrasModule = async (event: NewMessageEvent, config?: any) => {
   const { text } = event.message;
   if (!text) return;
@@ -37,6 +43,8 @@ const ExtrasModule = async (event: NewMessageEvent, config?: any) => {
     if (!match) return;
 
     switch (match[1]) {
+      case "source":
+        return GitHubRepo(event);
       case "chatid":
         return GetChatID(event);
 
