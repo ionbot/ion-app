@@ -7,12 +7,7 @@ import { Provider } from "use-http";
 import { ChakraProvider } from "@chakra-ui/react";
 
 import defaultTheme from "./themes/default";
-
-let { REACT_APP_HOST: HOST } = process.env;
-
-if (!HOST) {
-  HOST = "http://localhost:4200"; // default use localhost
-}
+import { HOST } from "./config";
 
 ReactDOM.render(
   <ChakraProvider theme={defaultTheme}>
