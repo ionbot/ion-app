@@ -56,16 +56,20 @@ if (env.NODE_ENV !== "development") {
 // server.use(errorHandlers.notFoundHandler);
 // server.use(errorHandlers.errorHandler);
 
+const Start = () => {
+  const _s = server.listen(env.PORT, () => {
+    console.log(`Dashboard is running on port: ${env.PORT}`);
+  });
+
+  io.listen(_s);
+};
+
 if (env.NODE_ENV === "development") {
-  server.listen(env.PORT, () => console.log("Listening on port", env.PORT));
+  Start();
 }
 
 module.exports = {
   start: () => {
-    const _s = server.listen(env.PORT, () => {
-      console.log(`Dashboard is running on port: ${env.PORT}`);
-    });
-
-    io.listen(_s);
+    Start();
   },
 };
