@@ -1,7 +1,6 @@
 import env from "./env";
 
 import "./ion/setup";
-import http from "http";
 import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
