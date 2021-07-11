@@ -18,7 +18,7 @@ try {
     useUnifiedTopology: true,
   });
 } catch (e) {
-  console.log("Error connected to database");
+  console.log("Error connecting to database");
   console.log(e);
   process.exit(0);
 }
@@ -58,4 +58,10 @@ if (env.NODE_ENV === "development") {
   server.listen(env.PORT, () => console.log("Listening on port", env.PORT));
 }
 
-export default { server };
+module.exports = {
+  start: () => {
+    server.listen(env.PORT, () =>
+      console.log(`Dashboard is running on port: ${env.PORT}`)
+    );
+  },
+};
