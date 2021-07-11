@@ -23,35 +23,39 @@ try {
   process.exit(0);
 }
 /** Express Server */
-const app = express();
-app.use(cors());
-app.use(
+const server = express();
+server.use(cors());
+server.use(
   helmet({
     contentSecurityPolicy: false,
   })
 );
-app.use(
+server.use(
   morgan("dev", {
     skip: (req, res) => env.isProd && res.statusCode < 500,
   })
 );
-app.use(express.json());
+server.use(express.json());
 
 // API Route
-app.use("/api", apiRoutes);
+server.use("/api", apiRoutes);
 
 /** serve dashboard folder only in production */
 
 if (env.NODE_ENV !== "development") {
   const dashboard = path.join(__dirname, "/dashboard");
-  app.use(serveStatic(dashboard));
-  app.get("*", async (req, res) => {
+  server.use(serveStatic(dashboard));
+  server.get("*", async (req, res) => {
     res.sendFile(dashboard + "/index.html");
   });
 }
 
 // Middlewares
-// app.use(errorHandlers.notFoundHandler);
-// app.use(errorHandlers.errorHandler);
+// server.use(errorHandlers.notFoundHandler);
+// server.use(errorHandlers.errorHandler);
 
-app.listen(env.PORT, () => console.log("Listening on port", env.PORT));
+if (env.NODE_ENV === "development") {
+  server.listen(env.PORT, () => console.log("Listening on port", env.PORT));
+}
+
+export default { server };
