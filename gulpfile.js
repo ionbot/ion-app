@@ -40,4 +40,4 @@ gulp.task("release", (cb) => {
   cb();
 });
 
-exports.default = gulp.series("build-client", "build-server", "release");
+exports.default = gulp.series("build-client", "build-server");
