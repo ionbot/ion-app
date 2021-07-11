@@ -1,8 +1,7 @@
 import { NewMessageEvent } from "telegram/events";
-import { ModuleMeta } from "..";
 import VERSION from "../../../version";
 
-const meta: ModuleMeta = require("./meta.json");
+import meta from "./meta";
 
 const PingModule = async (event: NewMessageEvent, config?: any) => {
   let extra = config.extra || "";

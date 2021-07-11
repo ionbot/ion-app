@@ -1,9 +1,8 @@
 import { NodeVM, VMScript } from "vm2";
 
 import { NewMessageEvent } from "telegram/events";
-import { ModuleMeta } from "..";
 
-const meta: ModuleMeta = require("./meta.json");
+import meta from "./meta";
 
 const EvalModule = async (event: NewMessageEvent, config?: any) => {
   const vm = new NodeVM({
