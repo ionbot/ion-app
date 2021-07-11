@@ -1,43 +1,14 @@
-import env from "../../env";
-import { readJSONSync, writeJSONSync, existsSync } from "fs-extra";
-import path from "path";
+import { Configs } from "../../models/configs";
 
-export interface IConfig {
-  prefixes: string;
-}
-
-let configFile: string;
-
-if (env.NODE_ENV === "development")
-  configFile = path.join(__dirname, "../../config.json");
-else configFile = path.join(__dirname, "../config.json");
-
-const defaults: any = {
-  prefixes: ". ,",
-};
-
-const getConfigs = () => {
-  if (existsSync(configFile)) {
-    const config = readJSONSync(configFile);
-    return config;
-  } else {
-    writeJSONSync(configFile, defaults);
-    return defaults;
+export const save = async (key: string, value: any) => {
+  try {
+    await Configs.create({ key, value });
+  } catch (e) {
+    await Configs.updateOne({ key }, { value });
   }
-};
 
-export const save = (key: string, value: any) => {
-  const configs: any = getConfigs();
-  writeJSONSync(configFile, {
-    ...configs,
-    [key]: value,
-  });
+  return;
 };
-export const load = (key: string): any => {
-  const configs: any = getConfigs();
-  let _config = configs[key];
-  if (!_config) {
-    _config = defaults[key];
-  }
-  return _config;
+export const load = async (key: string): Promise<any> => {
+  return await Configs.findOne({ key });
 };
