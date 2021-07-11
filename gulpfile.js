@@ -3,6 +3,7 @@ const run = require("gulp-run");
 const zip = require("gulp-zip");
 const fs = require("fs");
 const { version } = require("./lerna.json");
+let package = require("./packages/bot/package.json");
 
 gulp.task("build-server", (cb) => {
   run("npm run build:server").exec("", () => {
@@ -19,11 +20,21 @@ gulp.task("build-client", (cb) => {
 gulp.task("release", (cb) => {
   if (!fs.existsSync("dist")) fs.mkdirSync("dist");
   gulp.src("packages/bot/build/**").pipe(gulp.dest("dist/"));
-  gulp.src("packages/bot/package.json").pipe(gulp.dest("dist/"));
   gulp.src("app.json").pipe(gulp.dest("dist/"));
   gulp.src("packages/dashboard/build/**").pipe(gulp.dest("dist/dashboard"));
 
-  fs.writeFileSync("dist/.env", `NODE_ENV=production\nMONGO=`);
+  delete package["devDependencies"];
+
+  fs.writeFileSync(
+    "dist/package.json",
+    JSON.stringify(
+      {
+        ...package,
+      },
+      null,
+      2
+    )
+  );
 
   gulp
     .src("dist/**")
