@@ -52,7 +52,7 @@ export default class extends ConfigUpdater {
      */
 
     this.startTime = new Date();
-    const session = sessionProvider.load();
+    const session = await sessionProvider.load(1);
     this.apiId = Number(session.apiId);
     this.apiHash = session.apiHash;
     this.session = new StringSession(session.session);

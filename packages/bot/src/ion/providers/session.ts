@@ -1,33 +1,33 @@
-import { readJSONSync, writeJSONSync, existsSync } from "fs-extra";
-import path from "path";
-
+import { Users } from "../../models/users";
 export interface Session {
+  userId: number;
   apiId: number;
   apiHash: string;
   session: string;
 }
 
-const { NODE_ENV } = process.env;
-
-let sessionFile: string;
-
-if (NODE_ENV === "development")
-  sessionFile = path.join(__dirname, "../../../session.json");
-else sessionFile = path.join(__dirname, "../../session.json");
-
-export const save = (session: Session) => {
-  writeJSONSync(sessionFile, { ...session });
+export const save = async (userSession: Session) => {
+  const user = await Users.findOne({ userId: userSession.userId });
+  if (!user) {
+    await Users.create({
+      ...userSession,
+    });
+  }
 };
 
-export const load = (): Session => {
-  if (existsSync(sessionFile)) {
-    return readJSONSync(sessionFile);
-  } else {
-    writeJSONSync(sessionFile, {});
-    return {
-      apiId: 0,
-      apiHash: "",
-      session: "",
-    };
+export const load = async (userId?: number): Promise<Session> => {
+  // note: future proof (if we need to add more accounts)
+
+  const user = await Users.findOne({});
+
+  if (user) {
+    return user;
   }
+
+  return {
+    userId: 0,
+    apiId: 0,
+    apiHash: "",
+    session: "",
+  };
 };

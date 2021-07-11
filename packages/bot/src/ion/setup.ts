@@ -1,7 +1,7 @@
 import { Api, TelegramClient } from "telegram";
 import { StringSession } from "telegram/sessions";
 import Ion from "./core";
-import * as session from "./providers/session";
+import * as sessionProvider from "./providers/session";
 import io from "./socket";
 
 io.on("connection", (socket) => {
@@ -45,11 +45,12 @@ io.on("connection", (socket) => {
         },
       });
 
-      const self = await client.getMe();
+      const self: any = await client.getMe();
 
       const usersession = String(client.session.save());
 
-      session.save({
+      sessionProvider.save({
+        userId: Number(self.id),
         apiId,
         apiHash,
         session: usersession,
