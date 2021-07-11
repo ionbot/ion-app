@@ -1,13 +1,15 @@
 import { NewMessage, NewMessageEvent } from "telegram/events";
-import * as appConfig from "../providers/app-config";
+// import * as appConfig from "../providers/app-config";
 import * as moduleConfig from "../providers/module-config";
 import { allModules } from "../modules";
 import Client from "./Client";
 
+const defaultPrefixes = ["."];
+
 const escapeForRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 export default class extends Client {
-  private prefixes: string[] = appConfig.load("prefixes").split(/\s/);
+  private prefixes: string[] = defaultPrefixes; //todo: load from database
   public loadedModules: any[] = [];
 
   constructor() {
