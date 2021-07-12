@@ -126,10 +126,8 @@ export default () => {
           </Flex>
 
           <Text p={4}>
-            In dolore eiusmod incididunt dolore ipsum minim eu occaecat. Ea anim
-            proident irure velit sint pariatur nisi culpa laborum nisi aute
-            mollit occaecat elit.
-          </Text>
+            Thank you for taking the time to look over the Ion Userbot Setup page. Please fill out the required information to activate your Userbot.
+            </Text>
 
           {error && (
             <Alert status="error">

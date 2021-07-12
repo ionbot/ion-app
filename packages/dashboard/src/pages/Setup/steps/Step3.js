@@ -1,4 +1,4 @@
-import { Stack, Input, FormControl, FormLabel } from "@chakra-ui/react";
+import { Stack, Input, FormControl, FormLabel, FormHelperText } from "@chakra-ui/react";
 import { SetupStore } from "../../../store/setup.store";
 
 export default () => {
@@ -15,6 +15,7 @@ export default () => {
       <FormControl>
         <FormLabel>Password</FormLabel>
         <Input placeholder={passwordHint} id="password"  onChange={handelChange} />
+        <FormHelperText>Enter Your Telegram 2FA Password</FormHelperText>
       </FormControl>
     </Stack>
   );
