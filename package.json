@@ -1,19 +1,15 @@
 {
-  "name": "ionbot",
-  "version": "0.0.0",
-  "main": "index.js",
+  "name": "@ionapp/bot",
+  "version": "1.2.4",
+  "main": "dist/index.js",
   "useWorkspaces": true,
   "license": "MIT",
-  "pkg": {
-    "scripts": "dist/**/*.js",
-    "assets": "dist/**/*"
-  },
   "scripts": {
     "dev": "concurrently --kill-others \"yarn dev:client\" \"yarn dev:server\"",
     "build": "gulp",
-    "dev:server": "lerna run dev --scope @ionapp/bot --stream",
+    "dev:server": "lerna run dev --scope bot --stream",
     "dev:client": "lerna run dev --scope dashboard",
-    "build:server": "lerna run build --scope @ionapp/bot --stream",
+    "build:server": "lerna run build --scope bot --stream",
     "build:client": "lerna run build --scope dashboard --stream",
     "new-version": "lerna version",
     "release": "standard-version"
