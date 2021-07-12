@@ -21,8 +21,9 @@ jobs:
           npx lerna bootstrap
 
       - name: Building
-        run: |
-          yarn build
+        run: yarn build
+        env:
+          CI: false
 
       # - name: Publishing
       #   run: |
