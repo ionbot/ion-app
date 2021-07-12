@@ -65,7 +65,13 @@ export default class extends ConfigUpdater {
         connectionRetries: 15,
       });
 
-      await this.client.start({ botAuthToken: "" });
+      try {
+        await this.client.start({ botAuthToken: "" });
+      } catch (_) {
+        sessionProvider.deleteUser(this.session.save());
+        await this.start();
+        return;
+      }
 
       this.loadModules();
 
