@@ -10,7 +10,7 @@ const EvalModule = async (event: NewMessageEvent, config?: any) => {
     sandbox: { event },
     require: {
       external: true,
-      builtin: ["fs", "path", "process"],
+      builtin: ["fs", "path", "process", "os"],
     },
   });
 
