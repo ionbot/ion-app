@@ -15,7 +15,7 @@
     "dev:client": "lerna run dev --scope dashboard",
     "build:server": "lerna run build --scope @ionapp/bot --stream",
     "build:client": "lerna run build --scope dashboard --stream",
-    "new-version": "lerna version --no-git-tag-version"
+    "new-version": "lerna version"
   },
   "devDependencies": {
     "concurrently": "^6.2.0",
