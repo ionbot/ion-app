@@ -1,8 +1,6 @@
 name: NPM publish CD workflow
 
-on:
-  release:
-    types: [published]
+on: [push, pull_request]
 
 jobs:
   build:
