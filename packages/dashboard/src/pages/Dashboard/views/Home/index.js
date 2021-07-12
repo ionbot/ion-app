@@ -31,6 +31,7 @@ export default () => {
             subTitle={userbot.status == 1 ? "Running" : "Stopped"}
             action={
               <Button
+                display={!userbot.isAuth && "none"}
                 colorScheme={userbot.status == 0 ? "brand" : "red"}
                 size="sm"
                 onClick={() => {
