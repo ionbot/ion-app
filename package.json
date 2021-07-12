@@ -29,5 +29,10 @@
   },
   "engines": {
     "node": "16.x"
+  },
+  "dependencies": {
+    "@types/align-text": "^1.0.1",
+    "align-text": "^1.0.2",
+    "city-timezones": "^1.2.0"
   }
 }

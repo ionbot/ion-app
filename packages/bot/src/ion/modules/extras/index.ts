@@ -4,16 +4,19 @@ import meta from "./meta";
 import { GetChatID, GetUserID } from "./submodules/GetID";
 import { PurgeMessages } from "./submodules/Purge";
 import { GitHubRepo } from "./submodules/Source";
+import { GetTime } from "./submodules/Time";
 
 const ExtrasModule = async (event: NewMessageEvent, config?: any) => {
   const { text } = event.message;
   if (!text) return;
 
   try {
-    const match = text.match(/^\.(\w+)?([\s\S+])?/);
+    const match = text.match(/^\.(\w+)(.*)?/m);
     if (!match) return;
 
-    switch (match[1]) {
+    const [, command, ...params] = match;
+
+    switch (command) {
       case "source":
         return GitHubRepo(event);
       case "chatid":
@@ -22,6 +25,8 @@ const ExtrasModule = async (event: NewMessageEvent, config?: any) => {
         return GetUserID(event);
       case "purge":
         return PurgeMessages(event);
+      case "city":
+        return GetTime(event, params);
     }
   } catch (e) {}
 };
