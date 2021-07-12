@@ -84,5 +84,14 @@ export default class extends ConfigUpdater {
     /** stop user bot */
   }
 
+  async logout(socket: Socket) {
+    if (this.apiId) {
+      sessionProvider.deleteUser(this.apiId);
+      this.user = undefined;
+      this.client?.destroy();
+      socket.emit("logout");
+    }
+  }
+
   loadModules() {}
 }

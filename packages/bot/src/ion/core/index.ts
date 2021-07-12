@@ -8,6 +8,9 @@ export default new (class extends ModuleLoader {
     io.on("connection", (socket) => {
       socket.on("start-bot", () => this.start(socket));
       socket.on("stop-bot", () => this.stop(socket));
+      socket.on("logout", () => {
+        this.logout(socket);
+      });
       socket.on("update-mod-config", (data) => {
         let final = this.loadedModules.map((module) => {
           if (module.slug == data.module) module.configValues = data.values;

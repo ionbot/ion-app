@@ -14,4 +14,8 @@ socket.on("bot-status", (status) => {
   });
 });
 
+socket.on("logout", () => {
+  window.location = "/";
+});
+
 export { UserBotStore };

@@ -22,6 +22,11 @@ export const save = async (userSession: Session) => {
   }
 };
 
+export const deleteUser = async (apiId: number) => {
+  await Users.deleteOne({ apiId });
+  return;
+};
+
 export const load = async (userId?: number): Promise<Session> => {
   // note: future proof (if we need to add more accounts)
 
