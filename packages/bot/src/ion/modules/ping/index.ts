@@ -7,7 +7,8 @@ const PingModule = async (event: NewMessageEvent, config?: any) => {
   let extra = config.extra || "";
 
   const time = Date.now();
-  await event.client?.sendMessage("me", { message: "..." }); // send message to pm
+  await event.message.edit({ text: "..." });
+
   const diff = Date.now() - time;
 
   const latency = `🕔 Latency: **${
