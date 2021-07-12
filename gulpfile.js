@@ -24,7 +24,10 @@ gulp.task("dist", (cb) => {
   gulp.src("README.md").pipe(gulp.dest("dist/"));
   gulp.src("packages/dashboard/build/**").pipe(gulp.dest("dist/dashboard"));
 
+  const version = require("./lerna.json").version;
+
   delete package["devDependencies"];
+  package["version"] = version;
 
   fs.writeFileSync(
     "dist/package.json",
@@ -36,11 +39,6 @@ gulp.task("dist", (cb) => {
       2
     )
   );
-
-  const lerna = require("./lerna.json");
-  const _package = require("./package.json");
-  _package["version"] = lerna["version"];
-  fs.writeFileSync("package.json", JSON.stringify(_package, null, 2));
 
   cb();
 });
