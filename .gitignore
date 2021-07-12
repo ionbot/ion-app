@@ -94,9 +94,6 @@ build/
 dist/
 node_modules
 .node_history
-package-lock.json
-**/package-lock.json
-!docs/package-lock.json
 *.heapsnapshot
 *-error.log
 session.json
