@@ -1,8 +1,9 @@
 import { NewMessageEvent } from "telegram/events";
 import meta from "./meta";
 
-import { GetChatID, GetUserID } from "./submodules/GetID";
+import { Help } from "./submodules/Help";
 import { PurgeMessages } from "./submodules/Purge";
+import { GetChatID, GetUserID } from "./submodules/GetID";
 import { GitHubRepo } from "./submodules/Source";
 import { GetTime } from "./submodules/Time";
 
@@ -27,6 +28,8 @@ const ExtrasModule = async (event: NewMessageEvent, config?: any) => {
         return PurgeMessages(event);
       case "city":
         return GetTime(event, params);
+      case "help":
+        return Help(event);
     }
   } catch (e) {}
 };
