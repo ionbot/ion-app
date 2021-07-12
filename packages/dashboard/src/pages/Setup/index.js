@@ -15,6 +15,7 @@ import {
   AlertIcon,
   AlertTitle,
   AlertDescription,
+  chakra,
 } from "@chakra-ui/react";
 
 import { SetupStore } from "../../store/setup.store";
@@ -54,7 +55,7 @@ export default () => {
 
     socket.on("get-password", (hint) => {
       if (hint) {
-        SetupStore.update(s => {
+        SetupStore.update((s) => {
           s.passwordHint = hint;
         });
       }
@@ -126,8 +127,17 @@ export default () => {
           </Flex>
 
           <Text p={4}>
-            Thank you for taking the time to look over the Ion Userbot Setup page. Please fill out the required information to activate your Userbot.
-            </Text>
+            Thanks for choosing Ion. Please fill out the required information to
+            activate your userbot. Get this value from{" "}
+            <chakra.a
+              href="https://my.telegram.org"
+              target="_blank"
+              color="blue"
+            >
+              here
+            </chakra.a>
+            .
+          </Text>
 
           {error && (
             <Alert status="error">
