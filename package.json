@@ -1,6 +1,6 @@
 {
   "name": "ionbot",
-  "version": "1.2.1",
+  "version": "1.2.3",
   "main": "index.js",
   "useWorkspaces": true,
   "license": "MIT",
