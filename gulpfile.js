@@ -24,7 +24,10 @@ gulp.task("dist", (cb) => {
   gulp.src("README.md").pipe(gulp.dest("dist/"));
   gulp.src("packages/dashboard/build/**").pipe(gulp.dest("dist/dashboard"));
 
+  const version = require("./lerna.json").version;
+
   delete package["devDependencies"];
+  package["version"] = version;
 
   fs.writeFileSync(
     "dist/package.json",
