@@ -11,14 +11,14 @@ export default () => {
   return (
     <Stack>
       <FormControl>
-        <FormLabel>API ID</FormLabel>
-        <Input placeholder="Get this value from https://my.telegram.org" id="apiId" onChange={handelChange} />
+        <FormLabel>API ID (Get This Value From  "https://my.telegram.org")</FormLabel>
+        <Input placeholder="3499832" id="apiId" onChange={handelChange} />
       </FormControl>
 
       <FormControl>
-        <FormLabel>API Hash</FormLabel>
+        <FormLabel>API HASH (Get This Value From  "https://my.telegram.org")</FormLabel>
         <Input
-          placeholder="Get this value from https://my.telegram.org"
+          placeholder="a2sd889qw88dq9du9dq8w7ud9o"
           id="apiHash"
           onChange={handelChange}
         />
