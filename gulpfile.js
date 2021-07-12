@@ -39,7 +39,7 @@ gulp.task("release", (cb) => {
   cb();
 });
 
-gulp.task("release", (cb) => {
+gulp.task("zip", (cb) => {
   gulp
     .src("dist/**")
     .pipe(zip(`ion-release-v${version}.zip`))
