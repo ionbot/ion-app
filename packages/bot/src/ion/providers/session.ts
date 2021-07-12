@@ -7,11 +7,18 @@ export interface Session {
 }
 
 export const save = async (userSession: Session) => {
-  const user = await Users.findOne({ userId: userSession.userId });
+  const user = await Users.findOne({});
   if (!user) {
     await Users.create({
       ...userSession,
     });
+  } else {
+    await Users.findOneAndUpdate(
+      {},
+      {
+        ...userSession,
+      }
+    );
   }
 };
 
