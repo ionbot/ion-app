@@ -97,6 +97,4 @@ node_modules
 *.heapsnapshot
 *-error.log
 .env
-yarn.lock
 ion-release*
-*.lock
