@@ -17,7 +17,7 @@ gulp.task("build-client", (cb) => {
   });
 });
 
-gulp.task("release", (cb) => {
+gulp.task("dist", (cb) => {
   if (!fs.existsSync("dist")) fs.mkdirSync("dist");
   gulp.src("packages/bot/build/**").pipe(gulp.dest("dist/"));
   gulp.src("app.json").pipe(gulp.dest("dist/"));
@@ -39,10 +39,10 @@ gulp.task("release", (cb) => {
   cb();
 });
 
-gulp.task("zip", (cb) => {
+gulp.task("release", (cb) => {
   gulp
     .src("dist/**")
     .pipe(zip(`ion-release-v${version}.zip`))
     .pipe(gulp.dest("."));
 });
-exports.default = gulp.series("build-client", "build-server");
+exports.default = gulp.series("build-client", "build-server", "dist");
