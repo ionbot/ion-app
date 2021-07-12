@@ -4,7 +4,9 @@ import { getLoadedModules, getUserBot } from "../api/ion";
 const apiRoutes = Router();
 
 apiRoutes.get("/userbot", async (req: Request, res: Response) => {
-  const user = await getUserBot();
+  console.log(req.query);
+  const { token } = req.query;
+  const user = await getUserBot(String(token));
   res.json(user);
 });
 

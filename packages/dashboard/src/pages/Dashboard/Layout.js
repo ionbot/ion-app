@@ -8,24 +8,34 @@ import {
   Icon,
   IconButton,
   Heading,
-  Image,
   useDisclosure,
+  Center,
+  Text,
 } from "@chakra-ui/react";
 
 import { withRouter } from "react-router-dom";
 
 import { FiBell } from "react-icons/fi";
 
-import { RiMenu2Line } from "react-icons/ri";
+import { RiMenu2Line, RiEyeFill } from "react-icons/ri";
 import { UserBotStore } from "../../store/userbot.store";
 import Sidebar from "./components/Sidebar";
 
 const Layout = ({ children, match }) => {
-  const { profile, ionv } = UserBotStore.useState((s) => s);
+  const { profile, ionv, isAuth } = UserBotStore.useState((s) => s);
   const sidebar = useDisclosure();
 
   return (
     <Box bg={"gray.50"} minH="100vh">
+      {!isAuth && (
+        <Center
+          h={8}
+          bgGradient="linear(to-r, purple.200, brand.500)"
+          textColor="white"
+        >
+          <RiEyeFill /> <Text ml={2}>View Mode</Text>
+        </Center>
+      )}
       <Sidebar
         version={ionv}
         active={match.params.view}

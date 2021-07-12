@@ -9,17 +9,21 @@ import { UserBotStore } from "./store/userbot.store";
 const App = (props) => {
   /** Fetch user, if not found, render Setup view */
 
-  const userApi = useFetch("/userbot");
+  const userApi = useFetch(
+    "/userbot?token=" + localStorage.getItem("ion-token")
+  );
+
   useEffect(() => {
     userApi.get().then((data) => {
       if (data) {
-        const { profile, version, upTime, status } = data;
+        const { profile, version, upTime, status, isAuth } = data;
         if (profile)
           UserBotStore.update((s) => {
             s.profile = data.profile;
             s.ionv = version;
             s.status = status;
             s.upTime = upTime;
+            s.isAuth = isAuth;
           });
       }
     });

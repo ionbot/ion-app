@@ -14,9 +14,7 @@ const Dashboard = ({ match }) => {
 
   // Handle modules event
   useEffect(() => {
-    socket.on("module-loaded", (data) => {
-      console.log("data", data);
-    });
+    socket.on("module-loaded", (data) => {});
   }, []);
 
   const View = () => {

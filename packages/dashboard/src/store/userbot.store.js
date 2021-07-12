@@ -6,6 +6,7 @@ const UserBotStore = new Store({
   profile: {},
   upTime: 0,
   status: 0,
+  isAuth: false,
 });
 
 socket.on("bot-status", (status) => {

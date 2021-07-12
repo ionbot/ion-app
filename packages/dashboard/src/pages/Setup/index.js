@@ -91,6 +91,7 @@ export default () => {
         setLoading(true);
         socket.emit("password", setupStore.data.password);
       case 4:
+        localStorage.setItem("ion-token", setupStore.data.apiHash); // user API Hash as token
         break;
     }
   };

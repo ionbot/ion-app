@@ -44,6 +44,9 @@ export default class extends ConfigUpdater {
   }
 
   log() {}
+  isValidToken(token: string) {
+    return this.apiHash === token;
+  }
 
   async start(socket?: Socket) {
     /**
