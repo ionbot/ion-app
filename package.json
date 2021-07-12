@@ -4,10 +4,6 @@
   "main": "dist/index.js",
   "useWorkspaces": true,
   "license": "MIT",
-  "pkg": {
-    "scripts": "dist/**/*.js",
-    "assets": "dist/**/*"
-  },
   "scripts": {
     "dev": "concurrently --kill-others \"yarn dev:client\" \"yarn dev:server\"",
     "build": "gulp",
