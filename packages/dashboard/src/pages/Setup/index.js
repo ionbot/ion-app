@@ -118,27 +118,30 @@ export default () => {
 
       <Center mt={6} p={4}>
         <Box w={{ base: "full", md: "2xl" }} pos="relative">
-          <Flex alignItems="center" p={4} rounded="lg" bg="gray.100">
-            <Heading>🚀 Ion Setup</Heading>
-            <Spacer />
-            <Tag size="lg" colorScheme="brand">
-              Step {setupStore.step} of {MAX_STEP}
-            </Tag>
-          </Flex>
+          {setupStore.step < 4 ? (
+            <>
+              <Flex alignItems="center" p={4} rounded="lg" bg="gray.100">
+                <Heading>🚀 Ion Setup</Heading>
+                <Spacer />
+                <Tag size="lg" colorScheme="brand">
+                  Step {setupStore.step} of {MAX_STEP}
+                </Tag>
+              </Flex>
 
-          <Text p={4}>
-            Thanks for choosing Ion. Please fill out the required information to
-            activate your userbot. Get this value from{" "}
-            <chakra.a
-              href="https://my.telegram.org"
-              target="_blank"
-              color="blue"
-            >
-              here
-            </chakra.a>
-            .
-          </Text>
-
+              <Text p={4}>
+                Thanks for choosing Ion. Please fill out the required
+                information to activate your userbot. Get this value from{" "}
+                <chakra.a
+                  href="https://my.telegram.org"
+                  target="_blank"
+                  color="blue"
+                >
+                  here
+                </chakra.a>
+                .
+              </Text>
+            </>
+          ) : null}
           {error && (
             <Alert status="error">
               <AlertIcon />
@@ -146,7 +149,6 @@ export default () => {
               <AlertDescription>{error}</AlertDescription>
             </Alert>
           )}
-
           <Box p={4} bg="white">
             {loading ? (
               <Center>
@@ -156,7 +158,6 @@ export default () => {
               StepView[setupStore.step]
             )}
           </Box>
-
           <Center pos="absolute" right={4}>
             <HStack>{!loading && <NavButtons />}</HStack>
           </Center>

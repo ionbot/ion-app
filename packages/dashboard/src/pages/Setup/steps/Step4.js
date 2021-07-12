@@ -21,8 +21,6 @@ export default () => {
         colorScheme="brand"
         variant="top-accent"
         flexDirection="column"
-        alignItems="center"
-        justifyContent="center"
         textAlign="center"
         rounded="lg"
         p={4}
@@ -48,7 +46,7 @@ export default () => {
           Join Telegram
         </Button>
         <Button leftIcon={<FiArrowRight />} colorScheme="brand" href="/" as="a">
-          Go to Dashboard
+          Awesome Dashboard
         </Button>
       </HStack>
     </Box>
