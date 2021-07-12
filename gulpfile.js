@@ -37,11 +37,6 @@ gulp.task("dist", (cb) => {
     )
   );
 
-  const lerna = require("./lerna.json");
-  const _package = require("./package.json");
-  _package["version"] = lerna["version"];
-  fs.writeFileSync("package.json", JSON.stringify(_package, null, 2));
-
   cb();
 });
 
