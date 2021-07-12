@@ -22,8 +22,8 @@ export const save = async (userSession: Session) => {
   }
 };
 
-export const deleteUser = async (apiId: number) => {
-  await Users.deleteOne({ apiId });
+export const deleteUser = async (session: string) => {
+  await Users.deleteOne({ session });
   return;
 };
 
