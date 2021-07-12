@@ -1,0 +1,32 @@
+name: Node.js Package Publish
+on:
+  push:
+    branches:
+      - develop # for testing
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      # Setup .npmrc file to publish to npm
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16.x"
+          registry-url: "https://registry.npmjs.org"
+      - name: Install Dependencies
+        run: |
+          yarn install
+      - name: Bootstrapping packages
+        rnun: |
+          npx lerna bootstrap
+
+      - name: Building Package
+        run: |
+          yarn build
+
+      - name: Publishing
+        run: |
+          npm publish --access public
+        working-directory: ./dist
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
