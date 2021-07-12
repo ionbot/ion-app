@@ -1,6 +1,6 @@
 {
   "name": "@ionapp/bot",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -9,6 +9,8 @@
     "build": "tsc"
   },
   "dependencies": {
+    "align-text": "^1.0.2",
+    "city-timezones": "^1.2.0",
     "cors": "^2.8.5",
     "date-fns": "^2.22.1",
     "dotenv": "^10.0.0",
@@ -26,9 +28,7 @@
     "telegram": "^1.7.7",
     "vm2": "^3.9.3",
     "winston": "^3.3.3",
-    "ws": "^7.5.2",
-    "align-text": "^1.0.2",
-    "city-timezones": "^1.2.0"
+    "ws": "^7.5.2"
   },
   "devDependencies": {
     "@types/align-text": "^1.0.1",
