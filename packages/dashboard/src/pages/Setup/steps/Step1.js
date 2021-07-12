@@ -17,7 +17,7 @@ export default () => {
       </FormControl>
 
       <FormControl>
-        <FormLabel>API HASH (Get This Value From  "https://my.telegram.org")</FormLabel>
+        <FormLabel>API HASH</FormLabel>
         <Input placeholder="a2sd889qw88dq9du9dq8w7ud9o" id="apiHash" onChange={handelChange} />
         <FormHelperText>Please Get this Value From "https://my.telegram.org"</FormHelperText>
       </FormControl>
