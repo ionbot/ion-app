@@ -3,8 +3,8 @@ import { NewMessageEvent } from "telegram/events";
 export const Help = (event: NewMessageEvent) => {
   event.message.edit({
     text:
-      `<a href="https://docs.ionbot.site">Lern about Ion.</a>\n` +
-      `<a href="https://docs.ionbot.site/commands">Commands</a>\n`,
+      `🚀 Learn about Ion: <a href="https://docs.ionbot.site">Click here</a>\n` +
+      `💬 Get commands help: <a href="https://docs.ionbot.site/commands">Click here</a>\n`,
     parseMode: "html",
   });
 };
