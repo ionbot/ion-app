@@ -126,7 +126,7 @@ export default () => {
           </Flex>
 
           <Text p={4}>
-            Thank you for visiting the Ion Userbot Setup page to learn more about it. To activate your Userbot, please fill out the required information.
+            Thank you for taking the time to look over the Ion Userbot Setup page. Please fill out the required information to activate your Userbot.
             </Text>
 
           {error && (
