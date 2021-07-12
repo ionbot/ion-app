@@ -1,7 +1,7 @@
 {
   "name": "ionbot",
   "version": "0.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "useWorkspaces": true,
   "license": "MIT",
   "pkg": {
