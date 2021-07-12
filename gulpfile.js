@@ -36,12 +36,13 @@ gulp.task("release", (cb) => {
     )
   );
 
+  cb();
+});
+
+gulp.task("release", (cb) => {
   gulp
     .src("dist/**")
     .pipe(zip(`ion-release-v${version}.zip`))
     .pipe(gulp.dest("."));
-
-  cb();
 });
-
 exports.default = gulp.series("build-client", "build-server");
