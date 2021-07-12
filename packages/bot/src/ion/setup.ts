@@ -49,7 +49,7 @@ io.on("connection", (socket) => {
 
       const usersession = String(client.session.save());
 
-      sessionProvider.save({
+      await sessionProvider.save({
         userId: Number(self.id),
         apiId,
         apiHash,
