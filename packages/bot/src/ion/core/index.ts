@@ -5,6 +5,11 @@ export default new (class extends ModuleLoader {
   constructor() {
     super();
 
+    io.use((socket: any, next: Function) => {
+      const token = socket.handshake.auth.token;
+      if (this.isValidToken(token)) next();
+    });
+
     io.on("connection", (socket) => {
       socket.on("start-bot", () => this.start(socket));
       socket.on("stop-bot", () => this.stop(socket));

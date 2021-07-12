@@ -8,15 +8,16 @@ import {
   Icon,
   IconButton,
   Heading,
-  Image,
   useDisclosure,
+  Center,
+  Text,
 } from "@chakra-ui/react";
 
 import { withRouter } from "react-router-dom";
 
 import { FiBell } from "react-icons/fi";
 
-import { RiMenu2Line } from "react-icons/ri";
+import { RiMenu2Line, RiEyeFill, RiCodeLine } from "react-icons/ri";
 import { UserBotStore } from "../../store/userbot.store";
 import Sidebar from "./components/Sidebar";
 

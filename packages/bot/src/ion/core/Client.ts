@@ -44,6 +44,9 @@ export default class extends ConfigUpdater {
   }
 
   log() {}
+  isValidToken(token: string) {
+    return this.apiHash === token;
+  }
 
   async start(socket?: Socket) {
     /**
@@ -85,8 +88,10 @@ export default class extends ConfigUpdater {
   }
 
   async logout(socket: Socket) {
-    if (this.apiId) {
-      sessionProvider.deleteUser(this.apiId);
+    const session = this.session?.save();
+
+    if (session) {
+      sessionProvider.deleteUser(session);
       this.user = undefined;
       this.client?.destroy();
       socket.emit("logout");

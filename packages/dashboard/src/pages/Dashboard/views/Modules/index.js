@@ -40,6 +40,7 @@ export default () => {
   }, []);
 
   const ModuleInfo = (meta) => {
+    const totalConfigs = Object.keys(meta.config).length;
     const { name, description } = meta;
 
     return (
@@ -50,6 +51,7 @@ export default () => {
 
           <ButtonGroup>
             <Button
+              d={totalConfigs == 0 && "none"}
               colorScheme="brand"
               size="sm"
               leftIcon={<RiSettings6Fill />}
