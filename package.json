@@ -15,7 +15,8 @@
     "dev:client": "lerna run dev --scope dashboard",
     "build:server": "lerna run build --scope @ionapp/bot --stream",
     "build:client": "lerna run build --scope dashboard --stream",
-    "new-version": "lerna version"
+    "new-version": "lerna version",
+    "release": "standard-version"
   },
   "devDependencies": {
     "concurrently": "^6.2.0",
@@ -23,7 +24,8 @@
     "gulp-run": "^1.7.1",
     "gulp-uglify": "^3.0.2",
     "gulp-zip": "^5.1.0",
-    "lerna": "^4.0.0"
+    "lerna": "^4.0.0",
+    "standard-version": "^9.3.0"
   },
   "engines": {
     "node": "16.x"
