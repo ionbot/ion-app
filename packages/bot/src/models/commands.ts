@@ -3,7 +3,7 @@ import { model, Schema } from "mongoose";
 interface ICommands {
   name: string;
   match: string;
-  scope: "all" | "private" | "group";
+  scope: "all" | "private" | "group" | "channel";
   mode: "all" | "incoming" | "outgoing";
   actions: any[];
 }
