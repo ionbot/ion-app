@@ -8,6 +8,7 @@ import Home from "./views/Home";
 import Commands from "./views/Commands";
 import Modules from "./views/Modules";
 import Settings from "./views/Settings";
+import Work from "./views/Work";
 
 const Dashboard = ({ match }) => {
   let { view } = match.params;
@@ -27,6 +28,8 @@ const Dashboard = ({ match }) => {
         return <Commands />;
       case "settings":
         return <Settings />;
+      case "work":
+        return <Work />;
       default:
         return <Redirect to="/home" />;
     }
