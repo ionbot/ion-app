@@ -23,8 +23,9 @@ gulp.task("dist", (cb) => {
   gulp.src("app.json").pipe(gulp.dest("dist/"));
   gulp.src("README.md").pipe(gulp.dest("dist/"));
   gulp.src("packages/dashboard/build/**").pipe(gulp.dest("dist/dashboard"));
-
+ 
   const version = require("./package.json").version;
+ 
 
   delete package["devDependencies"];
   package["version"] = version;

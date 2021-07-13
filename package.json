@@ -18,6 +18,7 @@
     "build:client": "lerna run build --scope dashboard --stream",
     "new-version": "lerna version",
     "release": "lerna version && gulp dist",
+ 
     "prepare": "husky install"
   },
   "devDependencies": {

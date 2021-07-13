@@ -1,6 +1,6 @@
 name: Ion build and publish
 
-on: release
+on: release 
 
 jobs:
   build:
@@ -29,3 +29,4 @@ jobs:
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+ 
