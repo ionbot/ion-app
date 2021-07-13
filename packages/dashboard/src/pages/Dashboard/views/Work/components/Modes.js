@@ -17,23 +17,25 @@ import {
   FormControl,
   FormLabel,
   Input,
-  RadioGroup,
-  HStack,
-  Radio,
   Stack,
+  FormHelperText,
+  Textarea,
 } from "@chakra-ui/react";
 import { FiPlus } from "react-icons/fi";
 import { useForm } from "react-hook-form";
+import useFetch from "use-http";
 
 export default () => {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
+  const workModeApi = useFetch("/workmode");
+
+  const { register, handleSubmit } = useForm();
 
   const drawer = useDisclosure();
+
+  const CreateMode = (data) => {
+    console.log("data", data);
+    workModeApi.post(data);
+  };
 
   return (
     <Box>
@@ -67,38 +69,44 @@ export default () => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>New Work Mode</DrawerHeader>
+          <DrawerHeader>New Mode</DrawerHeader>
+          <form onSubmit={handleSubmit(CreateMode)}>
+            <DrawerBody>
+              <Text mb={4} textColor="gray.500">
+                Create a new mode. For automatic trigger, you can enter times.
+              </Text>
 
-          <DrawerBody>
-            <Stack spacing={6}>
-              <FormControl id="email">
-                <FormLabel>Name</FormLabel>
-                <Input placeholder="Enter mode name" />
-              </FormControl>
+              <Stack spacing={6}>
+                <FormControl>
+                  <FormLabel>Name</FormLabel>
+                  <Input placeholder="Enter mode name" {...register("name")} />
+                </FormControl>
 
-              <FormControl as="fieldset">
-                <FormLabel as="legend">Trigger on</FormLabel>
-                <RadioGroup defaultValue="time">
-                  <HStack>
-                    <Radio value="time">Time</Radio>
-                    <Radio value="command">Command</Radio>
-                  </HStack>
-                </RadioGroup>
-              </FormControl>
+                <FormControl>
+                  <FormLabel>Time</FormLabel>
+                  <Input placeholder="HH:MM - HH:MM" {...register("time")} />
+                  <FormHelperText>24 hour format</FormHelperText>
+                </FormControl>
 
-              <FormControl id="email">
-                <FormLabel>Time</FormLabel>
-                <Input placeholder="Enter mode name" />
-              </FormControl>
-            </Stack>
-          </DrawerBody>
+                {/* Message */}
+                <FormControl>
+                  <FormLabel>Your Message</FormLabel>
+                  <Textarea
+                    h={200}
+                    placeholder="I am at work."
+                    {...register("message")}
+                  />
+                </FormControl>
+              </Stack>
+            </DrawerBody>
 
-          <DrawerFooter>
-            <Button variant="outline" mr={3} onClick={drawer.onClose}>
-              Cancel
-            </Button>
-            <Button colorScheme="blue">Save</Button>
-          </DrawerFooter>
+            <DrawerFooter>
+              <Button variant="outline" mr={3} onClick={drawer.onClose}>
+                Cancel
+              </Button>
+              <Button type="submit">Save</Button>
+            </DrawerFooter>
+          </form>
         </DrawerContent>
       </Drawer>
     </Box>
