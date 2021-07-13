@@ -1,6 +1,6 @@
 {
   "name": "dashboard",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "dependencies": {
     "@chakra-ui/react": "^1.6.4",
     "@emotion/react": "^11",
