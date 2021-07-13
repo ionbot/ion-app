@@ -1,8 +1,6 @@
-name: NPM Publish Package
-on:
-  push:
-    branches:
-      - main
+name: Ion build and publish
+
+on: release 
 
 jobs:
   build:
@@ -26,6 +24,9 @@ jobs:
           CI: false
 
       - name: Publishing to NPM
-        uses: JS-DevTools/npm-publish@v1
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
+        working-directory: ./dist
+        run: |
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+ 
