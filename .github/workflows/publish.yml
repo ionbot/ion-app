@@ -1,4 +1,4 @@
-name: Node.js Package Publish
+name: NPM Publish Package
 on:
   push:
     branches:
