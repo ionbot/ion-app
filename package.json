@@ -5,6 +5,7 @@
   "useWorkspaces": true,
   "license": "MIT",
   "scripts": {
+    "start": "node dist",
     "dev": "concurrently --kill-others \"yarn dev:client\" \"yarn dev:server\"",
     "build": "gulp",
     "dev:server": "lerna run dev --scope bot --stream",
