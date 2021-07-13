@@ -13,7 +13,8 @@
     "build:server": "lerna run build --scope bot --stream",
     "build:client": "lerna run build --scope dashboard --stream",
     "new-version": "lerna version",
-    "release": "standard-version"
+    "release": "standard-version",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "concurrently": "^6.2.0",
@@ -21,10 +22,15 @@
     "gulp-run": "^1.7.1",
     "gulp-uglify": "^3.0.2",
     "gulp-zip": "^5.1.0",
+    "husky": "^7.0.0",
     "lerna": "^4.0.0",
     "standard-version": "^9.3.0"
   },
   "engines": {
     "node": "16.x"
+  },
+  "dependencies": {
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4"
   }
 }
