@@ -1,12 +1,8 @@
 export default {
+  slug: "ping",
   name: "Ping",
   description:
     "Just to check if your bot is alive or not, shows Ion version also.",
-  slug: "ping",
-
-  match: "ping",
-  scope: "all",
-  mode: "outgoing",
 
   config: {
     showLatency: {

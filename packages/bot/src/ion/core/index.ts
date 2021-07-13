@@ -18,7 +18,7 @@ export default new (class extends ModuleLoader {
       });
       socket.on("update-mod-config", (data) => {
         let final = this.loadedModules.map((module) => {
-          if (module.slug == data.module) module.configValues = data.values;
+          if (module.meta.slug == data.module) module.config = data.values;
           return module;
         });
         this.loadedModules = final;

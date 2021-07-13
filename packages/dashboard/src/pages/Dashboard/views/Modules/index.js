@@ -28,7 +28,7 @@ import socket from "../../providers/socket.io";
 export default () => {
   const [configValues, setConfigValues] = useState({});
   const moduleDrawer = useDisclosure();
-  const [activeModule, setActiveModule] = useState({});
+  const [activeModule, setActiveModule] = useState({ meta: {}, config: {} });
 
   const [modules, setModules] = useState([]); // save loadede modules
   const moduleApi = useFetch("modules");
@@ -39,8 +39,8 @@ export default () => {
     });
   }, []);
 
-  const ModuleInfo = (meta) => {
-    const totalConfigs = Object.keys(meta.config).length;
+  const ModuleInfo = ({ meta, config }) => {
+    const totalConfigs = Object.keys(config).length;
     const { name, description } = meta;
 
     return (
@@ -56,7 +56,7 @@ export default () => {
               size="sm"
               leftIcon={<RiSettings6Fill />}
               onClick={() => {
-                setActiveModule(meta);
+                setActiveModule({ meta, config });
                 moduleDrawer.onOpen();
               }}
             >
@@ -116,8 +116,8 @@ export default () => {
               onChange={(data) => {
                 setConfigValues(data);
               }}
-              configs={activeModule.config}
-              configValues={activeModule.configValues}
+              configs={activeModule.meta.config}
+              configValues={activeModule.config}
             />
           </DrawerBody>
 
@@ -129,7 +129,7 @@ export default () => {
               colorScheme="brand"
               onClick={() => {
                 socket.emit("update-mod-config", {
-                  module: activeModule.slug,
+                  module: activeModule.meta.slug,
                   values: configValues,
                 });
               }}
