@@ -6,8 +6,12 @@ export default new (class extends ModuleLoader {
     super();
 
     io.use((socket: any, next: Function) => {
-      const token = socket.handshake.auth.token;
-      if (this.isValidToken(token)) next();
+      if (this.user) {
+        const token = socket.handshake.auth.token;
+        if (this.isValidToken(token)) next();
+      } else {
+        next();
+      }
     });
 
     io.on("connection", (socket) => {
