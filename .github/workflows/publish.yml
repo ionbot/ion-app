@@ -1,8 +1,6 @@
-name: NPM Publish Package
-on:
-  push:
-    branches:
-      - main
+name: Ion build and publish
+
+on: release
 
 jobs:
   build:
@@ -26,6 +24,7 @@ jobs:
           CI: false
 
       - name: Publishing to NPM
+        working-directory: ./dist
         run: |
           npm publish --access public
         env:
