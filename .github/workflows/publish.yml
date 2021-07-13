@@ -1,4 +1,4 @@
-name: Node.js Package Publish
+name: NPM Publish Package
 on:
   push:
     branches:
@@ -26,6 +26,7 @@ jobs:
           CI: false
 
       - name: Publishing to NPM
-        uses: JS-DevTools/npm-publish@v1
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
+        run: |
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
