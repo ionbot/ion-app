@@ -4,10 +4,9 @@
   "main": "dist/index.js",
   "useWorkspaces": true,
   "license": "MIT",
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
+  "dependencies": {
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4"
   },
   "scripts": {
     "start": "node dist",
@@ -27,15 +26,16 @@
     "gulp-run": "^1.7.1",
     "gulp-uglify": "^3.0.2",
     "gulp-zip": "^5.1.0",
-    "husky": "^7.0.0",
+    "husky": "^7.0.1",
     "lerna": "^4.0.0",
     "standard-version": "^9.3.0"
   },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
   "engines": {
     "node": "16.x"
-  },
-  "dependencies": {
-    "@commitlint/cli": "^12.1.4",
-    "@commitlint/config-conventional": "^12.1.4"
   }
 }
