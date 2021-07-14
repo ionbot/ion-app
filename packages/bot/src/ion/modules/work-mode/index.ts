@@ -1,9 +1,8 @@
 import meta from "./meta";
 
-import worMode from "./work-mode";
-import checker from "./checker";
+import workMode from "./work-mode";
 
 export default {
-  handlers: [worMode, checker],
+  handlers: [...workMode],
   meta,
 };
