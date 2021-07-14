@@ -8,5 +8,5 @@ export default new IonHandler(
       parseMode: "html",
     });
   },
-  { match: "source" }
+  { commands: "source" }
 );
