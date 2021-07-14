@@ -58,7 +58,7 @@ export default [
       await gramtgcalls.stream(event.chatId, spawnFFmpeg(path).stdout);
       await repliedMessage.reply({ message: "Streaming..." });
     },
-    { match: "stream", scope: "group" }
+    { commands: "stream", scope: "group" }
   ),
   new IonHandler(
     async (client, event, config) => {
@@ -71,7 +71,7 @@ export default [
         text: gramtgcalls.pause(event.chatId) ? "Paused!" : "Not streaming!",
       });
     },
-    { match: "pause", scope: "group" }
+    { commands: "pause", scope: "group" }
   ),
   new IonHandler(
     async (client, event, config) => {
@@ -83,6 +83,6 @@ export default [
         text: gramtgcalls.resume(event.chatId) ? "Resumed!" : "Not paused!",
       });
     },
-    { match: "resume", scope: "group" }
+    { commands: "resume", scope: "group" }
   ),
 ];
