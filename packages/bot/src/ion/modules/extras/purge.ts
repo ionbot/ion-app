@@ -26,5 +26,5 @@ export default new IonHandler(
       event.message.edit({ text: `❌ Please reply to a message.` });
     }
   },
-  { match: "purge" }
+  { commands: "purge" }
 );

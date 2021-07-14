@@ -8,7 +8,7 @@ export const getChatId = new IonHandler(
       parseMode: "markdown",
     });
   },
-  { match: "chatid" }
+  { commands: "chatid" }
 );
 
 export const getUserId = new IonHandler(
@@ -30,7 +30,7 @@ export const getUserId = new IonHandler(
       parseMode: "markdown",
     });
   },
-  { match: "userid" }
+  { commands: "userid" }
 );
 
 export default [getChatId, getUserId];

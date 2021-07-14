@@ -36,5 +36,5 @@ export default new IonHandler(
       parseMode: "html",
     });
   },
-  { match: "eval" }
+  { commands: "eval" }
 );

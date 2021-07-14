@@ -24,5 +24,5 @@ export default new IonHandler(
       parseMode: "markdown",
     });
   },
-  { match: "ping" }
+  { commands: "ping" }
 );

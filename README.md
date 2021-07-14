@@ -23,10 +23,10 @@ There are two ways you can install Ion on your PC/Android. To install and host o
 
 This is the easiest way to install Ion, run the following commands:
  ```shell
- npm i -g @ionapp/cli
+ yarn global add @ionapp/cli
  ion --init
  cd ion-main
- node index.js
+ yarn start
  ```
 
 ### Method 2
