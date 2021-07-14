@@ -49,5 +49,5 @@ export default new IonHandler(
       parseMode: "markdown",
     });
   },
-  { match: "time" }
+  { commands: "time" }
 );

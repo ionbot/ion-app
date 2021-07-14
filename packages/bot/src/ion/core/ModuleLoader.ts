@@ -35,23 +35,14 @@ export default class extends Client {
     super();
   }
 
-  match(
-    event: NewMessageEvent,
-    patternOrCommands: string | string[] | RegExp
-  ): boolean {
+  match(event: NewMessageEvent, commands: string | string[]): boolean {
     const message = event.message.message;
 
     if (!message) {
       return false;
     }
 
-    if (patternOrCommands instanceof RegExp) {
-      return Boolean(message.match(patternOrCommands));
-    }
-
-    const commands = Array.isArray(patternOrCommands)
-      ? patternOrCommands
-      : [patternOrCommands];
+    commands = Array.isArray(commands) ? commands : [commands];
 
     for (let k in this.prefixes) {
       const prefix = this.prefixes[k];
@@ -79,29 +70,29 @@ export default class extends Client {
 
     this.loadedModules = []; // delete all previous loaded modules
 
-    modules.map(async (mod: Module) => {
-      const moduleMeta = mod.meta;
-      const config: any = await moduleConfig.get(moduleMeta.slug);
+    modules.map(async (module: Module) => {
+      const { meta } = module;
+      const config: any = await moduleConfig.get(meta.slug);
 
-      const handlers: IonHandler[] = Array.isArray(mod.handlers)
-        ? mod.handlers
-        : [mod.handlers];
+      const handlers: IonHandler[] = Array.isArray(module.handlers)
+        ? module.handlers
+        : [module.handlers];
 
       handlers.forEach((handler) => {
-        const { meta } = handler;
+        const { params } = handler;
 
-        meta.mode = meta.mode || "outgoing";
-        meta.scope = meta.scope || "all";
+        params.mode = params.mode || "outgoing";
+        params.scope = params.scope || "all";
 
         const mode = {
-          outgoing: meta.mode == "outgoing",
-          incoming: meta.mode == "incoming",
+          outgoing: params.mode == "outgoing",
+          incoming: params.mode == "incoming",
         };
 
         try {
           this.client?.addEventHandler(
             async (event: NewMessageEvent) => {
-              const config: any = await moduleConfig.get(moduleMeta.slug);
+              const config: any = await moduleConfig.get(meta.slug);
               handler.handler(
                 this.client as TelegramClient,
                 event,
@@ -111,9 +102,15 @@ export default class extends Client {
             new NewMessage({
               ...mode,
               func: (event) => {
-                const match = this.match(event, meta.match);
+                let match = false;
 
-                switch (meta.scope) {
+                if (params.pattern) {
+                  match = Boolean(event.message.message?.match(params.pattern));
+                } else if (params.commands) {
+                  match = this.match(event, params.commands);
+                }
+
+                switch (params.scope) {
                   case "private":
                     return match && !!event.isPrivate;
                   case "group":
@@ -132,7 +129,7 @@ export default class extends Client {
       });
 
       this.loadedModules.push({
-        meta: moduleMeta,
+        meta,
         config: config ? config.values : {},
       });
     });

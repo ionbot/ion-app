@@ -9,5 +9,5 @@ export default new IonHandler(
       parseMode: "html",
     });
   },
-  { match: "help" }
+  { commands: "help" }
 );

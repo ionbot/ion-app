@@ -7,5 +7,5 @@ export default new IonHandler(
     const match = text.match(/^\.(\w+)(.*)?/m);
     console.log("match", match);
   },
-  { match: "search" }
+  { commands: "search" }
 );
