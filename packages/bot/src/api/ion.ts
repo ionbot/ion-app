@@ -14,7 +14,10 @@ export const getUserBot = async (token: string) => {
   }
 
   if (token.length === 0) {
-    return {};
+    return {
+      isAuth: !Ion.user,
+      status: Ion.status,
+    };
   }
 
   return {
