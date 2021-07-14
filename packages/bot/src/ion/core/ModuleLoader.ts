@@ -35,18 +35,40 @@ export default class extends Client {
     super();
   }
 
-  createPattern(match: string | string[] | RegExp) {
-    if (match instanceof RegExp) {
-      return match;
+  match(
+    event: NewMessageEvent,
+    patternOrCommands: string | string[] | RegExp
+  ): boolean {
+    const message = event.message.message;
+
+    if (!message) {
+      return false;
     }
 
-    const commands = Array.isArray(match) ? match : [match];
+    if (patternOrCommands instanceof RegExp) {
+      return Boolean(message.match(patternOrCommands));
+    }
 
-    return new RegExp(
-      `^(${this.prefixes.filter(escapeForRegExp).join("|")})(${commands
-        .filter(escapeForRegExp)
-        .join("|")})`
-    );
+    const commands = Array.isArray(patternOrCommands)
+      ? patternOrCommands
+      : [patternOrCommands];
+
+    for (let k in this.prefixes) {
+      const prefix = this.prefixes[k];
+
+      if (message.startsWith(prefix)) {
+        for (let k in commands) {
+          const command = commands[k];
+          const withoutPrefix = message.slice(1, message.length);
+
+          if (withoutPrefix.match(new RegExp(`^(?:${command})(?:\\s|$)`))) {
+            return true;
+          }
+        }
+      }
+    }
+
+    return false;
   }
 
   loadModules() {
@@ -89,9 +111,7 @@ export default class extends Client {
             new NewMessage({
               ...mode,
               func: (event) => {
-                const match = Boolean(
-                  event.message.message?.match(this.createPattern(meta.match))
-                );
+                const match = this.match(event, meta.match);
 
                 switch (meta.scope) {
                   case "private":
