@@ -2,10 +2,16 @@ export default {
   slug: "work-mode",
   name: "Work Mode",
   description:
-    "Work mode is same as AFK but with extra features including automated work mode.",
+    "Ion will handle your messages when you're at work or away from keyboard.",
 
   mode: "all",
   scop: "all",
 
-  config: {},
+  config: {
+    // timzone: {
+    //   info: "Select a timezone",
+    //   description: "Please select your timezone for proper functioning",
+    //   type: "timezone",
+    // },
+  },
 };

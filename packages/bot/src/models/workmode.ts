@@ -2,10 +2,10 @@ import { model, Schema } from "mongoose";
 
 export interface IWorkMode {
   name: string;
-  time: string;
   message: String;
+  time?: string;
   command?: string;
-  settings: object;
+  settings?: object;
 }
 
 const schema = new Schema<IWorkMode>({

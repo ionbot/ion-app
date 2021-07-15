@@ -20,22 +20,32 @@ import {
   Stack,
   FormHelperText,
   Textarea,
+  Switch,
 } from "@chakra-ui/react";
 import { FiPlus } from "react-icons/fi";
 import { useForm } from "react-hook-form";
 import useFetch from "use-http";
+import { useEffect, useState } from "react";
 
 export default () => {
-  const workModeApi = useFetch("/workmode");
+  const [workModes, setWorkModes] = useState([]);
+  const workModeApi = useFetch("/workmode", { persist: false });
 
   const { register, handleSubmit } = useForm();
-
   const drawer = useDisclosure();
 
+  const fetchModes = () =>
+    workModeApi.get().then((data) => {
+      setWorkModes(data);
+    });
+
   const CreateMode = (data) => {
-    console.log("data", data);
     workModeApi.post(data);
   };
+
+  useEffect(() => {
+    fetchModes();
+  }, []);
 
   return (
     <Box>
@@ -53,11 +63,40 @@ export default () => {
           </Button>
         </Flex>
 
-        <Box mt={4}>
-          <Center>
-            <Text>No modes, create a new one.</Text>
-          </Center>
-        </Box>
+        {workModes.length > 0 ? (
+          <Stack mt={4}>
+            {workModes.map((workMode, index) => {
+              return (
+                <Flex alignItems="center">
+                  <Box>
+                    <Text fontSize="xl">{workMode.name}</Text>
+                    <Text textColor="gray.500">{workMode.message}</Text>
+                  </Box>
+                  <Spacer />
+                  <Button
+                    colorScheme="red"
+                    size="sm"
+                    onClick={() => {
+                      workModeApi.delete(`?id=${workMode._id}`).then(() => {
+                        setWorkModes(
+                          workModes.filter((mode) => mode._id !== workMode._id)
+                        );
+                      });
+                    }}
+                  >
+                    delete
+                  </Button>
+                </Flex>
+              );
+            })}
+          </Stack>
+        ) : (
+          <Box mt={4}>
+            <Center>
+              <Text>No modes, create a new one.</Text>
+            </Center>
+          </Box>
+        )}
       </Box>
 
       <Drawer
@@ -73,7 +112,7 @@ export default () => {
           <form onSubmit={handleSubmit(CreateMode)}>
             <DrawerBody>
               <Text mb={4} textColor="gray.500">
-                Create a new mode. For automatic trigger, you can enter times.
+                Create a new mode
               </Text>
 
               <Stack spacing={6}>

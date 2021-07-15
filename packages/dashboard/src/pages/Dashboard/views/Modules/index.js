@@ -128,7 +128,6 @@ export default () => {
             <Button
               colorScheme="brand"
               onClick={() => {
-                console.log("activeModule", activeModule);
                 socket.emit("update-mod-config", {
                   module: activeModule.meta.slug,
                   values: configValues,
