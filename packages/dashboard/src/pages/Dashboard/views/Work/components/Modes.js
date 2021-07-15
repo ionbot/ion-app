@@ -22,6 +22,8 @@ import {
   Textarea,
   Switch,
 } from "@chakra-ui/react";
+
+import socket from "../../../providers/socket.io";
 import { FiPlus } from "react-icons/fi";
 import { useForm } from "react-hook-form";
 import useFetch from "use-http";
@@ -34,18 +36,17 @@ export default () => {
   const { register, handleSubmit } = useForm();
   const drawer = useDisclosure();
 
-  const fetchModes = () =>
-    workModeApi.get().then((data) => {
-      setWorkModes(data);
+  useEffect(() => {
+    socket.emit("fetch-workmode");
+
+    socket.on("fetch-workmode", (wms) => {
+      setWorkModes(wms);
     });
+  }, []);
 
   const CreateMode = (data) => {
-    workModeApi.post(data);
+    socket.emit("create-workmode", data);
   };
-
-  useEffect(() => {
-    fetchModes();
-  }, []);
 
   return (
     <Box>
@@ -77,11 +78,7 @@ export default () => {
                     colorScheme="red"
                     size="sm"
                     onClick={() => {
-                      workModeApi.delete(`?id=${workMode._id}`).then(() => {
-                        setWorkModes(
-                          workModes.filter((mode) => mode._id !== workMode._id)
-                        );
-                      });
+                      socket.emit("delete-workmode", workMode._id);
                     }}
                   >
                     delete

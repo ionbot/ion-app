@@ -1,6 +1,7 @@
 import { Request, Response, Router } from "express";
 import { getLoadedModules, getUserBot } from "../api/ion";
 import { createWorkMode, delWorkMode, getWorkMode } from "../api/workmode";
+import socket from "../ion/socket";
 
 const apiRoutes = Router();
 
@@ -17,22 +18,26 @@ apiRoutes.get("/modules/active", async (req: Request, res: Response) => {
 
 //  Work Mode
 
-apiRoutes.post("/workmode", async (req: Request, res: Response) => {
-  await createWorkMode(req.body);
-  res.json();
-});
+const EmitWorkMode = async (socket: any) => {
+  const workMode = await getWorkMode();
+  socket.emit("fetch-workmode", workMode);
+};
 
-apiRoutes.get("/workmode", async (req: Request, res: Response) => {
-  const workModes = await getWorkMode();
-  console.log("workModes", workModes);
-  res.json(workModes);
-});
+socket.on("connection", async (socket) => {
+  socket.on("create-workmode", async (workmode) => {
+    await createWorkMode(workmode);
+    EmitWorkMode(socket);
+  });
 
-apiRoutes.delete("/workmode", async (req: Request, res: Response) => {
-  const id: string = String(req.query.id);
+  socket.on("delete-workmode", async (id) => {
+    await delWorkMode(id);
+    socket.emit("delete-worknmode");
+    EmitWorkMode(socket);
+  });
 
-  await delWorkMode(id);
-  res.json();
+  socket.on("fetch-workmode", async () => {
+    EmitWorkMode(socket);
+  });
 });
 
 export default apiRoutes;

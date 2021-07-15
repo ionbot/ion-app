@@ -8,10 +8,10 @@ export default {
   scop: "all",
 
   config: {
-    // timzone: {
-    //   info: "Select a timezone",
-    //   description: "Please select your timezone for proper functioning",
-    //   type: "timezone",
-    // },
+    timzone: {
+      info: "Select a timezone",
+      description: "Please select your timezone for proper functioning",
+      type: "timezone",
+    },
   },
 };
