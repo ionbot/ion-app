@@ -1,5 +1,6 @@
-import { Box, Switch, Text, Textarea, Divider, Spacer } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { Box, Switch, Text, Textarea, Divider, Spacer } from "@chakra-ui/react";
+import TimezoneSelect from "react-timezone-select";
 
 const Builder = ({ type, defaultValue, onChange }) => {
   switch (type) {
@@ -23,6 +24,16 @@ const Builder = ({ type, defaultValue, onChange }) => {
           }}
         />
       );
+    case "timezone":
+      return (
+        <TimezoneSelect
+          value={{}}
+          onChange={(e) => {
+            onChange(e);
+          }}
+        />
+      );
+
     default:
       return null;
   }

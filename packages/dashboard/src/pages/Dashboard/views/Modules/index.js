@@ -40,7 +40,7 @@ export default () => {
   }, []);
 
   const ModuleInfo = ({ meta, config }) => {
-    const totalConfigs = Object.keys(config).length;
+    const totalConfigs = Object.keys(meta?.config || {}).length;
     const { name, description } = meta;
 
     return (
@@ -128,6 +128,7 @@ export default () => {
             <Button
               colorScheme="brand"
               onClick={() => {
+                console.log("activeModule", activeModule);
                 socket.emit("update-mod-config", {
                   module: activeModule.meta.slug,
                   values: configValues,
