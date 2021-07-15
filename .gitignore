@@ -98,3 +98,5 @@ node_modules
 *-error.log
 .env
 ion-release*
+
+downloads/
