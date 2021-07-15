@@ -1,3 +1,5 @@
+import { writeFileSync, rmSync } from "fs";
+import { createHash } from "crypto";
 import { NodeVM, VMScript } from "vm2";
 import IonHandler from "../../core/IonHandler";
 
@@ -31,10 +33,16 @@ export default new IonHandler(
       output = e;
     }
 
-    event.message.edit({
-      text: `<code>${output}</code>`,
-      parseMode: "html",
-    });
+    if (output.length < 4097) {
+      return event.message.reply({
+        message: `<code>${output}</code>`,
+        parseMode: "html",
+      });
+    } else {
+      const path = `output-${createHash("md5").update(output).digest("hex")}`;
+      writeFileSync(path, output);
+      return event.message.reply({ file: path, message: "" });
+    }
   },
   { commands: "eval" }
 );
